@@ -6,6 +6,8 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Users;
 use App\Entity\Recipes;
+use App\Entity\Reviews;
+use App\Entity\Ustensils;
 use App\Entity\Categories;
 use App\Entity\Ingredients;
 use Doctrine\Persistence\ObjectManager;
@@ -63,15 +65,33 @@ class AppFixtures extends Fixture
         }
 
         // Création de 10 utilisateurs
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $user = new Users();
-            $user->setUsername($faker->userName(2));
-            $user->setPseudo($faker->firstName());
+            $user->setUsername($faker->name(2));
+            $user->setPseudo($faker->userName(1));
             $user->setPassword($faker->password());
             $user->setEmail($faker->email());
-            $user->setRole($faker->randomElement([['ROLE_USER'], ['ROLE_ADMIN']]));
+            $user->setRole($faker->randomElement(['USER', 'ADMIN']));
             $this->users[] = $user;
             $manager->persist($user);
+        }
+
+
+        // Création de 20 avis
+        for ($i = 0; $i < 20; $i++) {
+            $review = new Reviews();
+            $review->setText($faker->text(255));
+            $review->setRating($faker->numberBetween(1, 5));
+            $manager->persist($review);
+        }
+
+
+        // Création de 15 ustensiles
+        for ($i = 0; $i < 15; $i++) {
+            $ustensil = new Ustensils();
+            $ustensil->setName('Ustensiles ' . $i);
+            $ustensil->setPicture($faker->imageUrl(800, 600));
+            $manager->persist($ustensil);
         }
 
         $manager->flush();
