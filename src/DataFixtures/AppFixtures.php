@@ -4,12 +4,12 @@ namespace App\DataFixtures;
 
 
 use Faker\Factory;
-use App\Entity\Users;
-use App\Entity\Recipes;
-use App\Entity\Reviews;
-use App\Entity\Ustensils;
-use App\Entity\Categories;
-use App\Entity\Ingredients;
+use App\Entity\User;
+use App\Entity\Recipe;
+use App\Entity\Review;
+use App\Entity\Ustensil;
+use App\Entity\Category;
+use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -18,25 +18,21 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class AppFixtures extends Fixture
 {
 
-    private $recipes = [];
-    private $users = [];
-
-
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
         // Création de 4 catégories
         for ($i = 0; $i < 4; $i++) {
-            $categorie = new Categories;
-            $categorie->setName('Catégorie ' . $i);
-            $manager->persist($categorie);
+            $category = new Category;
+            $category->setName('Catégorie ' . $i);
+            $manager->persist($category);
         }
 
 
         // Création de 4 ingrédients
         for ($i = 0; $i < 100; $i++) {
-            $ingredient = new Ingredients;
+            $ingredient = new Ingredient;
             $ingredient->setName('Ingrédient ' . $i);
             $ingredient->setPicture($faker->imageUrl(800, 600));
             for ($j = 0; $j < 2; $j++) {
@@ -48,7 +44,7 @@ class AppFixtures extends Fixture
 
         // Création de 15 recettes
         for ($i = 0; $i < 15; $i++) {
-            $recipe = new Recipes();
+            $recipe = new Recipe();
             $recipe->setName($faker->sentence(3));
             $recipe->setDescription($faker->text(255));
             $recipe->setPicture($faker->imageUrl(800, 600));
@@ -61,25 +57,23 @@ class AppFixtures extends Fixture
             $recipe->setStatus($faker->boolean());
 
             $manager->persist($recipe);
-            $this->recipes[] = $recipe;
         }
 
         // Création de 10 utilisateurs
         for ($i = 0; $i < 5; $i++) {
-            $user = new Users();
+            $user = new User();
             $user->setUsername($faker->name(2));
             $user->setPseudo($faker->userName(1));
             $user->setPassword($faker->password());
             $user->setEmail($faker->email());
             $user->setRole($faker->randomElement(['USER', 'ADMIN']));
-            $this->users[] = $user;
             $manager->persist($user);
         }
 
 
         // Création de 20 avis
         for ($i = 0; $i < 20; $i++) {
-            $review = new Reviews();
+            $review = new Review();
             $review->setText($faker->text(255));
             $review->setRating($faker->numberBetween(1, 5));
             $manager->persist($review);
@@ -88,7 +82,7 @@ class AppFixtures extends Fixture
 
         // Création de 15 ustensiles
         for ($i = 0; $i < 15; $i++) {
-            $ustensil = new Ustensils();
+            $ustensil = new Ustensil();
             $ustensil->setName('Ustensiles ' . $i);
             $ustensil->setPicture($faker->imageUrl(800, 600));
             $manager->persist($ustensil);

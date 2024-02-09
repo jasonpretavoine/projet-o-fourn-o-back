@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientsRepository;
+use App\Repository\UstensilRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientsRepository::class)]
-class Ingredients
+#[ORM\Entity(repositoryClass: UstensilRepository::class)]
+class Ustensil
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,8 +21,13 @@ class Ingredients
     #[ORM\Column(length: 2083, nullable: true)]
     private ?string $picture = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $metricUnit = null;
+    #[ORM\ManyToMany(targetEntity: Recipe::class, inversedBy: 'ustensils')]
+    private Collection $recipe;
+
+    public function __construct()
+    {
+        $this->recipe = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,14 +58,26 @@ class Ingredients
         return $this;
     }
 
-    public function getMetricUnit(): ?string
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipe(): Collection
     {
-        return $this->metricUnit;
+        return $this->recipe;
     }
 
-    public function setMetricUnit(string $metricUnit): static
+    public function addRecipe(Recipe $recipe): static
     {
-        $this->metricUnit = $metricUnit;
+        if (!$this->recipe->contains($recipe)) {
+            $this->recipe->add($recipe);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): static
+    {
+        $this->recipe->removeElement($recipe);
 
         return $this;
     }

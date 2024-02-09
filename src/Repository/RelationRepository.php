@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Reviews;
+use App\Entity\Relation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Reviews>
+ * @extends ServiceEntityRepository<Relation>
  *
- * @method Reviews|null find($id, $lockMode = null, $lockVersion = null)
- * @method Reviews|null findOneBy(array $criteria, array $orderBy = null)
- * @method Reviews[]    findAll()
- * @method Reviews[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Relation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Relation[]    findAll()
+ * @method Relation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ReviewsRepository extends ServiceEntityRepository
+class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Reviews::class);
+        parent::__construct($registry, Relation::class);
     }
 
 //    /**
-//     * @return Reviews[] Returns an array of Reviews objects
+//     * @return Relation[] Returns an array of Relation objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class ReviewsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Reviews
+//    public function findOneBySomeField($value): ?Relation
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')
