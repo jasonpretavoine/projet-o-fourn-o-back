@@ -1,14 +1,15 @@
-{# templates/index.html.twig #}
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My App</title>
+    <title>Liste des recettes</title>
 </head>
 <body>
-    <h1>Welcome to My App</h1>
-    <p>This is a basic index page to verify that everything is working correctly.</p>
+    <h1>Liste des recettes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li>{{ recipe.name }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

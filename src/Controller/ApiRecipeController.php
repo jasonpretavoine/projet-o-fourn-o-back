@@ -26,13 +26,17 @@ class ApiRecipeController extends AbstractController
 
      
       /**
-     * Affiche les films par ordre de sortie décroissant
+     * 
      * 
      * @return Response 
      */
     #[Route('/api/recipes/view', name: 'app_api_recipes_view', methods: ['GET'])]
-    public function viewRecipes(): Response
+    public function viewRecipes(RecipeRepository $recipeRepository): Response
     {
-        return $this->render('api_recipe/index.html.twig');
+        $recipes = $recipeRepository->findAll();
+        return $this->render('api_recipe/index.html.twig', [
+            'recipes' => $recipes,
+        ]);
     }
+    
 }
