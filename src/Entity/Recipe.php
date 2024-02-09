@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\RecipeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Category;
+use App\Entity\Ustensil;
+use App\Entity\Ingredient;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Review;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
