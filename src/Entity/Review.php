@@ -13,20 +13,20 @@ class Review
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_recipe_item'])]
+    #[Groups(['get_recipe_item','get_reviews_collection', 'get_review_item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 1500)]
-    #[Groups(['get_recipe_item'])]
+    #[Groups(['get_recipe_item','get_reviews_collection', 'get_review_item'])]
     private ?string $text = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    #[Groups(['get_recipe_item'])]
+    #[Groups(['get_recipe_item','get_reviews_collection', 'get_review_item'])]
     private ?int $rating = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_recipe_item'])]
+    #[Groups(['get_recipe_item','get_reviews_collection', 'get_review_item'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]

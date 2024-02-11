@@ -14,22 +14,27 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_users_collection', 'get_user_item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['get_users_collection', 'get_user_item'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 30)]
-    #[Groups(['get_recipe_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'get_recipe_item', 'get_reviews_collection', 'get_review_item'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['get_users_collection', 'get_user_item'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get_users_collection', 'get_user_item'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['get_users_collection', 'get_user_item'])]
     private ?string $role = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, orphanRemoval: true)]
