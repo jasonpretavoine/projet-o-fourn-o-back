@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 class Ingredient
@@ -16,12 +17,15 @@ class Ingredient
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['get_recipes_collection', 'get_ingredients_collection', 'get_recipe_item'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 2083, nullable: true)]
+    #[Groups(['get_recipes_collection', 'get_ingredients_collection', 'get_recipe_item'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['get_recipes_collection' , 'get_ingredients_collection', 'get_recipe_item'])]
     private ?string $metricUnit = null;
 
     #[ORM\ManyToMany(targetEntity: Recipe::class, inversedBy: 'ingredients')]

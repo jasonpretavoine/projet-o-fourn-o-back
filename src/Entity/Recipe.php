@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Review;
 use App\Entity\Category;
 use App\Entity\Ustensil;
 use App\Entity\Ingredient;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Review;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -18,48 +19,62 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 2083, nullable: true)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?string $instructions = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?string $difficulty = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?int $preparationTime = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?int $cookingTime = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?int $servings = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $status = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipe')]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Ustensil::class, mappedBy: 'recipe')]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private Collection $ustensils;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'recipe')]
+    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
     private Collection $ingredients;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Review::class, orphanRemoval: true)]
+    #[Groups(['get_recipe_item'])]
     private Collection $reviews;
 
     #[ORM\ManyToOne(inversedBy: 'recipe')]

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -19,6 +20,7 @@ class User
     private ?string $username = null;
 
     #[ORM\Column(length: 30)]
+    #[Groups(['get_recipe_item'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 150)]
