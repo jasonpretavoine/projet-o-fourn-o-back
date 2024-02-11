@@ -14,14 +14,15 @@ class Ustensil
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_recipes_collection', 'get_ustensils_collection', 'get_recipe_item', 'get_ustensil_item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(['get_recipes_collection', 'get_ustensils_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_ustensils_collection', 'get_recipe_item', 'get_ustensil_item'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 2083, nullable: true)]
-    #[Groups(['get_recipes_collection', 'get_ustensils_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_ustensils_collection', 'get_recipe_item', 'get_ustensil_item'])]
     private ?string $picture = null;
 
     #[ORM\ManyToMany(targetEntity: Recipe::class, inversedBy: 'ustensils')]

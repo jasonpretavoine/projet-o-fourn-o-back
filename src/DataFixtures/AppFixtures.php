@@ -72,6 +72,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 15; $i++) {
             $ustensil = new Ustensil();
             $ustensil->setName($faker->word);
+            $ustensil->setPicture($faker->imageUrl(800, 600));
 
             $manager->persist($ustensil);
             $ustensils[] = $ustensil;

@@ -26,7 +26,7 @@ class ApiRecipeController extends AbstractController
         return $this->json($recipes, 200, [],['groups' => 'get_recipes_collection']);
     }   
 
-      /**
+    /**
      * Renvoi une recette donnée
      *
      * @param RecipeRepository $recipeRepository
