@@ -6,10 +6,11 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -30,13 +31,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/users/new', name: 'admin_users_new')]
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
@@ -49,12 +51,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/users/{id}/edit', name: 'admin_users_edit')]
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+            $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
             $this->entityManager->flush();
 
             return $this->redirectToRoute('admin_users');
