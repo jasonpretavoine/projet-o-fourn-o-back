@@ -1,11 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Manage Recipes
+{% endblock %}
 
-{% block body %}
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is a basic dashboard template for the admin section of your application.</p>
-    <ul>
-        <li><a href="{{ path('admin_recipe_index') }}">View Recipes</a></li>
-    </ul>
+{% block content %}
+	<h1>Manage Recipes</h1>
+
+	<a href="{{ path('admin_recipes_new') }}" class="btn btn-primary mb-3">Add Recipe</a>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Instructions</th>
+				<th>Preparation Time</th>
+				<th>Cooking Time</th>
+				<th>Difficulty</th>
+				<th>Servings</th>
+				<th>Rating</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for recipe in recipes %}
+				<tr>
+					<td>{{ recipe.name }}</td>
+					<td>{{ recipe.description }}</td>
+					<td>{{ recipe.instructions }}</td>
+					<td>{{ recipe.preparationTime }}</td>
+					<td>{{ recipe.cookingTime }}</td>
+					<td>{{ recipe.difficulty }}</td>
+					<td>{{ recipe.servings }}</td>
+					<td>{{ recipe.rating }}</td>
+					<td>{{ recipe.status ? 'Active' : 'Inactive' }}</td>
+					<td>
+						<a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary">Edit</a>
+						<a href="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" class="btn btn-sm btn-danger">Delete</a>
+						<a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary">View</a>
+
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

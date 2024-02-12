@@ -41,9 +41,9 @@ class RecipeType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'Validé' => 'Validé',
-                    'Rejeté' => 'Rejeté',
-                    'En attente de modération' => 'En attente de modération',
+                    'Validé' => '0',
+                    'Rejeté' => '1',
+                    'En attente de modération' => '2',
                 ],
             ])
             ->add('categories', EntityType::class, [

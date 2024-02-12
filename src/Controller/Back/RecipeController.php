@@ -24,7 +24,7 @@ class RecipeController extends AbstractController
     public function index(RecipeRepository $recipeRepository): Response
     {
         $recipes = $recipeRepository->findAll();
-        return $this->render('admin/recipe/index.html.twig', [
+        return $this->render('admin/index.html.twig', [
             'recipes' => $recipes,
         ]);
     }
@@ -63,6 +63,14 @@ class RecipeController extends AbstractController
         return $this->render('admin/recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/recipes/{id}', name: 'admin_recipes_view', methods: ['GET'])]
+    public function view(Recipe $recipe): Response
+    {
+        return $this->render('admin/recipe/view.html.twig', [
+            'recipe' => $recipe,
         ]);
     }
 

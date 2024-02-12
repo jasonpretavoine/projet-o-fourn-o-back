@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe Details{% endblock %}
+
+{% block content %}
+    <h1>Recipe Details</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Name:</dt>
+        <dd class="col-sm-9">{{ recipe.name }}</dd>
+
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">{{ recipe.description }}</dd>
+
+        <dt class="col-sm-3">Instructions:</dt>
+        <dd class="col-sm-9">{{ recipe.instructions }}</dd>
+
+        <dt class="col-sm-3">Preparation Time:</dt>
+        <dd class="col-sm-9">{{ recipe.preparationTime }}</dd>
+
+        <dt class="col-sm-3">Cooking Time:</dt>
+        <dd class="col-sm-9">{{ recipe.cookingTime }}</dd>
+
+        <dt class="col-sm-3">Difficulty:</dt>
+        <dd class="col-sm-9">{{ recipe.difficulty }}</dd>
+
+        <dt class="col-sm-3">Servings:</dt>
+        <dd class="col-sm-9">{{ recipe.servings }}</dd>
+
+        <dt class="col-sm-3">Rating:</dt>
+        <dd class="col-sm-9">{{ recipe.rating }}</dd>
+
+        <dt class="col-sm-3">Status:</dt>
+        <dd class="col-sm-9">{{ recipe.status ? 'Active' : 'Inactive' }}</dd>
+    </dl>
+
+    <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-primary">Modifier</a>
+    <a href="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" class="btn btn-danger">Supprimer</a>
+    <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+{% endblock %}
