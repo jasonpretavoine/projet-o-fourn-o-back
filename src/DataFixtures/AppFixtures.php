@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         // Charger les catégories
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $category = new Category();
             $category->setName($faker->word);
 
@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
         // Charger les ustensiles
         for ($i = 0; $i < 15; $i++) {
             $ustensil = new Ustensil();
-            $ustensil->setName($faker->word);
+            $ustensil->setName($faker->unique()->word);
             $ustensil->setPicture($faker->imageUrl(800, 600));
 
             $manager->persist($ustensil);
@@ -81,9 +81,9 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         // Charger les recettes
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $recipe = new Recipe();
-            $recipe->setName($faker->sentence(3));
+            $recipe->setName($faker->unique()->sentence(3));
             $recipe->setDescription($faker->paragraph(2));
             $recipe->setPicture($faker->imageUrl());
             $recipe->setInstructions($faker->paragraph(4));

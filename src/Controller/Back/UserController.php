@@ -74,7 +74,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/{id}', name: 'admin_users_delete', methods: ['POST'])]
+    #[Route('/admin/users/{id}/delete', name: 'admin_users_delete', methods: ['POST'])]
     public function delete(User $user): Response
     {
         $this->entityManager->remove($user);

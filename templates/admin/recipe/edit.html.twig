@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1>Modifier la recette</h1>
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
-    <button type="submit">Enregistrer</button>
-    {{ form_end(form) }}
+    <button class="btn btn-warning">{{ button_label|default('Sauvegarde') }}</button>
+{{ form_end(form) }}
 {% endblock %}

@@ -12,12 +12,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class RecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('csrf_token', HiddenType::class, [
+            'mapped' => false,
+            'data' => $options['csrf_token'], // Incluez le jeton CSRF passé en option
+        ])
             ->add('name', null, [
                 'label' => 'Nom',
             ])
@@ -64,19 +69,31 @@ class RecipeType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
                 'label' => 'Catégories',
+                'label_attr'    => [
+                    'class' => 'checkbox-inline checkbox-switch',
+                ],
             ])
             ->add('ustensils', EntityType::class, [
                 'class' => Ustensil::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
                 'label' => 'Ustensiles',
+                'label_attr'    => [
+                    'class' => 'checkbox-inline checkbox-switch',
+                ],
             ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true, // Ajout de la sélection multiple
                 'label' => 'Ingrédients',
+                'label_attr'    => [
+                    'class' => 'checkbox-inline checkbox-switch',
+                ],
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
@@ -90,6 +107,7 @@ class RecipeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Recipe::class,
+            'csrf_token' => '',
         ]);
     }
 }

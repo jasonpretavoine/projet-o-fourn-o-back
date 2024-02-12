@@ -12,7 +12,13 @@
         <dt class="col-sm-3">Email :</dt>
         <dd class="col-sm-9">{{ user.email }}</dd>
 
-        {# Ajoutez d'autres champs utilisateur si nécessaire #}
+        <dt class="col-sm-3">Pseudo :</dt>
+        <dd class="col-sm-9">{{ user.pseudo }}</dd>
+
+        <dt class="col-sm-3">Role :</dt>
+        <dd class="col-sm-9">{{ user.role }}</dd>
+
+
     </dl>
 
     <a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier</a>

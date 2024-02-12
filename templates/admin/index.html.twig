@@ -1,49 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les recettes{% endblock %}
+{% block title %}Gérer les recettes
+{% endblock %}
 
 {% block content %}
-    <h1>Gérer les recettes</h1>
+	<h1>Gérer les recettes</h1>
 
-    <a href="{{ path('admin_users') }}" class="btn btn-primary mb-3">Voir les utilisateurs</a>
-    
-    <a href="{{ path('admin_recipes_new') }}" class="btn btn-primary mb-3">Ajouter une recette</a>
+	<a href="{{ path('admin_users') }}" class="btn btn-primary mb-3">Voir les utilisateurs</a>
+	<a href="{{ path('admin_recipes_new') }}" class="btn btn-primary mb-3">Ajouter une recette</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Instructions</th>
-                <th>Temps de préparation</th>
-                <th>Temps de cuisson</th>
-                <th>Difficulté</th>
-                <th>Portions</th>
-                <th>Évaluation</th>
-                <th>Statut</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for recipe in recipes %}
-                <tr>
-                    <td>{{ recipe.name }}</td>
-                    <td>{{ recipe.description }}</td>
-                    <td>{{ recipe.instructions }}</td>
-                    <td>{{ recipe.preparationTime }}</td>
-                    <td>{{ recipe.cookingTime }}</td>
-                    <td>{{ recipe.difficulty }}</td>
-                    <td>{{ recipe.servings }}</td>
-                    <td>{{ recipe.rating }}</td>
-                    <td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
-                    <td>
-                        <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                        <a href="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" class="btn btn-sm btn-danger">Supprimer</a>
-                        <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
-
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Instructions</th>
+				<th>Temps de préparation</th>
+				<th>Temps de cuisson</th>
+				<th>Difficulté</th>
+				<th>Portions</th>
+				<th>Évaluation</th>
+				<th>Statut</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for recipe in recipes %}
+				<tr>
+					<td>{{ recipe.name }}</td>
+					<td>{{ recipe.description }}</td>
+					<td>{{ recipe.instructions }}</td>
+					<td>{{ recipe.preparationTime }}</td>
+					<td>{{ recipe.cookingTime }}</td>
+					<td>{{ recipe.difficulty }}</td>
+					<td>{{ recipe.servings }}</td>
+					<td>{{ recipe.rating }}</td>
+					<td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
+					<td>
+						<a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+						<form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
+							<input type="hidden" name="_method" value="DELETE">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+							<button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
+						</form>
+						<a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<script>
+		function confirmDelete(recipeId) {
+if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+document.getElementById('delete-form-' + recipeId).submit();
+}
+}
+	</script>
 {% endblock %}
