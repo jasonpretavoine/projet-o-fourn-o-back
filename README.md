@@ -42,6 +42,8 @@ Toutes les recettes : ```/api/recipes/view```
 
 Recette par Id : ```/api/recipe/(Id_de_la_recette)```
 
+5 recettes aléatoires : ```/api/recipes/random```
+
 ### Ingrédients
 
 Tous les ingrédients : ```/api/ingredients/view```
