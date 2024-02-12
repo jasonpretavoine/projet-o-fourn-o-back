@@ -34,7 +34,7 @@ Le backoffice est installé.
 
 ## Liste des routes exploitables : 
 
-http://localhost/projet/projet-o-fourn-o-back/public/
+Racine : ```http://localhost/projet-o-fourn-o-back/public/```
 
 ### Recettes
 
