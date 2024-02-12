@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Recipes{% endblock %}
+
+{% block body %}
+    <h1>Manage Recipes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li>{{ recipe.name }} - <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}">Edit</a> | <a href="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('admin_recipes_new') }}">Nouvelle recette</a>
+
+    
+    
+   
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Dashboard</h1>
+    <p>This is a basic dashboard template for the admin section of your application.</p>
+    <ul>
+        <li><a href="{{ path('admin_recipe_index') }}">View Recipes</a></li>
+    </ul>
+{% endblock %}
