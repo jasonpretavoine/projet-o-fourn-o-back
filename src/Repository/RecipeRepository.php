@@ -21,6 +21,16 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
+
+    public function findFiveRandom()
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('RAND()')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */

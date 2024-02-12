@@ -19,50 +19,50 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 2083, nullable: true)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $instructions = null;
 
     #[ORM\Column(length: 30)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $difficulty = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?int $preparationTime = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?int $cookingTime = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?int $servings = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $status = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipe')]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Ustensil::class, mappedBy: 'recipe')]

@@ -17,7 +17,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(['get_recipes_collection', 'get_recipe_item'])]
+    #[Groups(['get_recipes_collection', 'get_recipe_item', 'get_recipes_random'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Recipe::class, inversedBy: 'categories')]
