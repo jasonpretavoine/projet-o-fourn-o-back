@@ -36,11 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = [];
-
-    #[ORM\Column(length: 100)]
     #[Groups(['get_users_collection', 'get_user_item'])]
-    private ?string $role = null;
+    private array $roles = [];
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, orphanRemoval: true)]
     private Collection $reviews;
