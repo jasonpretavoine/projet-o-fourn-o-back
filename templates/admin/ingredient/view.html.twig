@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'ingrédient{% endblock %}
+
+{% block content %}
+    <h1>Détails de l'ingrédient</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Nom :</dt>
+        <dd class="col-sm-9">{{ ingredient.name }}</dd>
+
+        <dt class="col-sm-3">Image :</dt>
+        <dd class="col-sm-9">{{ ingredient.picture }}</dd>
+
+        <dt class="col-sm-3">Unité de mesure :</dt>
+        <dd class="col-sm-9">{{ ingredient.metricUnit }}</dd>
+    </dl>
+
+    <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-primary">Modifier</a>
+    <form id="delete-form-{{ ingredient.id }}" action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
+        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ ingredient.id }})">Supprimer</button>
+    </form>
+    <a href="{{ path('admin_ingredients_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <script>
+        function confirmDelete(ingredientId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet ingrédient ?")) {
+                document.getElementById('delete-form-' + ingredientId).submit();
+            }
+        }
+    </script>
+{% endblock %}

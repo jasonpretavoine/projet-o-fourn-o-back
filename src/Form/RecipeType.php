@@ -7,6 +7,7 @@ use App\Entity\Recipe;
 use App\Entity\Category;
 use App\Entity\Ustensil;
 use App\Entity\Ingredient;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -99,6 +100,10 @@ class RecipeType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'pseudo',
                 'label' => 'Utilisateur',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.pseudo', 'ASC');
+                },
             ])
         ;
     }
