@@ -21,6 +21,7 @@ class UserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    // Affiche la liste des utilisateurs
     #[Route('/admin/users', name: 'admin_users')]
     public function index(UserRepository $userRepository): Response
     {
@@ -30,6 +31,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Crée un nouvel utilisateur
     #[Route('/admin/users/new', name: 'admin_users_new')]
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -50,6 +52,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Modifie un utilisateur existant
     #[Route('/admin/users/{id}/edit', name: 'admin_users_edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, User $user): Response
     {
@@ -70,6 +73,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Affiche les détails d'un utilisateur
     #[Route('/admin/users/{id}', name: 'admin_users_view', methods: ['GET'])]
     public function view(User $user): Response
     {
@@ -78,6 +82,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Supprime un utilisateur
     #[Route('/admin/users/{id}/delete', name: 'admin_users_delete', methods: ['POST'])]
     public function delete(User $user): Response
     {

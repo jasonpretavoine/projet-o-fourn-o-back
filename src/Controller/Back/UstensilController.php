@@ -20,6 +20,7 @@ class UstensilController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    // Affiche la liste des ustensiles
     #[Route('/ustensils', name: 'admin_ustensils_index', methods: ['GET'])]
     public function index(UstensilRepository $ustensilRepository): Response
     {
@@ -29,6 +30,7 @@ class UstensilController extends AbstractController
         ]);
     }
 
+    // Crée un nouvel ustensile
     #[Route('/ustensils/new', name: 'admin_ustensils_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -49,6 +51,7 @@ class UstensilController extends AbstractController
         ]);
     }
 
+    // Affiche les détails d'un ustensile
     #[Route('/ustensils/{id}', name: 'admin_ustensils_view', methods: ['GET'])]
     public function view(Ustensil $ustensil): Response
     {
@@ -57,6 +60,7 @@ class UstensilController extends AbstractController
         ]);
     }
 
+    // Modifie un ustensile existant
     #[Route('/ustensils/{id}/edit', name: 'admin_ustensils_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Ustensil $ustensil): Response
     {
@@ -75,6 +79,7 @@ class UstensilController extends AbstractController
         ]);
     }
 
+    // Supprime un ustensile
     #[Route('/ustensils/{id}', name: 'admin_ustensils_delete', methods: ['POST'])]
     public function delete(Request $request, Ustensil $ustensil): Response
     {

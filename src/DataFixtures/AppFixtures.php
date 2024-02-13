@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
             $review = new Review();
             $review->setText($faker->paragraph);
             $review->setRating($faker->numberBetween(1, 5));
-            $review->setUser($faker->randomElement($users)); // Add this line
+            $review->setUser($faker->randomElement($users)); 
             $review->setRecipe($faker->randomElement($recipes));
 
             $manager->persist($review);
