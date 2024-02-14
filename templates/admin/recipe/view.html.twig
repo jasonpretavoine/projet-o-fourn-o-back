@@ -1,71 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de la recette
-{% endblock %}
+{% block title %}Détails de la recette{% endblock %}
 
 {% block content %}
-	<h1>Détails de la recette</h1>
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
 
-	<dl class="row">
-		<dt class="col-sm-3">Nom :</dt>
-		<dd class="col-sm-9">{{ recipe.name }}</dd>
+        <div class="main">
+            <div class="section">
+                <h1>Détails de la recette</h1>
 
-		<dt class="col-sm-3">Description :</dt>
-		<dd class="col-sm-9">{{ recipe.description }}</dd>
+                <dl class="row">
+                    <dt class="col-sm-3">Nom :</dt>
+                    <dd class="col-sm-9">{{ recipe.name }}</dd>
 
-		<dt class="col-sm-3">Instructions :</dt>
-		<dd class="col-sm-9">{{ recipe.instructions }}</dd>
+                    <dt class="col-sm-3">Description :</dt>
+                    <dd class="col-sm-9">{{ recipe.description }}</dd>
 
-		<dt class="col-sm-3">Temps de préparation :</dt>
-		<dd class="col-sm-9">{{ recipe.preparationTime }}</dd>
+                    <dt class="col-sm-3">Instructions :</dt>
+                    <dd class="col-sm-9">{{ recipe.instructions }}</dd>
 
-		<dt class="col-sm-3">Temps de cuisson :</dt>
-		<dd class="col-sm-9">{{ recipe.cookingTime }}</dd>
+                    <dt class="col-sm-3">Temps de préparation :</dt>
+                    <dd class="col-sm-9">{{ recipe.preparationTime }}</dd>
 
-		<dt class="col-sm-3">Difficulté :</dt>
-		<dd class="col-sm-9">{{ recipe.difficulty }}</dd>
+                    <dt class="col-sm-3">Temps de cuisson :</dt>
+                    <dd class="col-sm-9">{{ recipe.cookingTime }}</dd>
 
-		<dt class="col-sm-3">Nombres de personnes :</dt>
-		<dd class="col-sm-9">{{ recipe.servings }}</dd>
+                    <dt class="col-sm-3">Difficulté :</dt>
+                    <dd class="col-sm-9">{{ recipe.difficulty }}</dd>
 
-		<dt class="col-sm-3">Note :</dt>
-		<dd class="col-sm-9">{{ recipe.rating }}</dd>
+                    <dt class="col-sm-3">Nombres de personnes :</dt>
+                    <dd class="col-sm-9">{{ recipe.servings }}</dd>
 
-		<dt class="col-sm-3">Statut :</dt>
-		<dd class="col-sm-9">{{ recipe.status ? 'Actif' : 'Inactif' }}</dd>
+                    <dt class="col-sm-3">Note :</dt>
+                    <dd class="col-sm-9">{{ recipe.rating }}</dd>
 
-             <dt class="col-sm-3">Ingrédients :</dt>
-        <dd class="col-sm-9">
-            <ul>
-                {% for ingredient in recipe.ingredients %}
-                    <li>{{ ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-        </dd>
+                    <dt class="col-sm-3">Statut :</dt>
+                    <dd class="col-sm-9">{{ recipe.status ? 'Actif' : 'Inactif' }}</dd>
 
-        <dt class="col-sm-3">Catégories :</dt>
-        <dd class="col-sm-9">
-            <ul>
-                {% for category in recipe.categories %}
-                    <li>{{ category.name }}</li>
-                {% endfor %}
-            </ul>
-        </dd>
-	</dl>
+                    <dt class="col-sm-3">Ingrédients :</dt>
+                    <dd class="col-sm-9">
+                        <ul>
+                            {% for ingredient in recipe.ingredients %}
+                                <li>{{ ingredient.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
 
-	<a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-primary">Modifier</a>
-	<form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
-		<input type="hidden" name="_method" value="DELETE">
-		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-		<button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
-	</form>
-	<a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+                    <dt class="col-sm-3">Catégories :</dt>
+                    <dd class="col-sm-9">
+                        <ul>
+                            {% for category in recipe.categories %}
+                                <li>{{ category.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
+                </dl>
 
-	<script>
-		function confirmDelete(recipeId) {
-if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
-document.getElementById('delete-form-' + recipeId).submit();
-}
-}
-	</script>
+                <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-primary">Modifier</a>
+                <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
+                </form>
+                <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(recipeId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+                document.getElementById('delete-form-' + recipeId).submit();
+            }
+        }
+    </script>
 {% endblock %}

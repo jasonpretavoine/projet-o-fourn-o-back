@@ -3,26 +3,38 @@
 {% block title %}Détails de l'ingrédient{% endblock %}
 
 {% block content %}
-    <h1>Détails de l'ingrédient</h1>
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
 
-    <dl class="row">
-        <dt class="col-sm-3">Nom :</dt>
-        <dd class="col-sm-9">{{ ingredient.name }}</dd>
+        <div class="main">
+            <div class="section">
+                <h1>Détails de l'ingrédient</h1>
 
-        <dt class="col-sm-3">Image :</dt>
-        <dd class="col-sm-9">{{ ingredient.picture }}</dd>
+                <dl class="row">
+                    <dt class="col-sm-3">Nom :</dt>
+                    <dd class="col-sm-9">{{ ingredient.name }}</dd>
 
-        <dt class="col-sm-3">Unité de mesure :</dt>
-        <dd class="col-sm-9">{{ ingredient.metricUnit }}</dd>
-    </dl>
+                    <dt class="col-sm-3">Image :</dt>
+                    <dd class="col-sm-9">{{ ingredient.picture }}</dd>
 
-    <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-primary">Modifier</a>
-    <form id="delete-form-{{ ingredient.id }}" action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
-        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ ingredient.id }})">Supprimer</button>
-    </form>
-    <a href="{{ path('admin_ingredients_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                    <dt class="col-sm-3">Unité de mesure :</dt>
+                    <dd class="col-sm-9">{{ ingredient.metricUnit }}</dd>
+                </dl>
+
+                <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-primary">Modifier</a>
+                <form id="delete-form-{{ ingredient.id }}" action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ ingredient.id }})">Supprimer</button>
+                </form>
+                <a href="{{ path('admin_ingredients_index') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
 
     <script>
         function confirmDelete(ingredientId) {

@@ -1,40 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les ustensiles
-{% endblock %}
+{% block title %}Gérer les ustensiles{% endblock %}
 
 {% block content %}
-	<h1>Gérer les ustensiles</h1>
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
 
-	<a href="{{ path('admin_ustensils_new') }}" class="btn btn-primary mb-3">Ajouter un ustensile</a>
+        <div class="main">
+            <div class="section">
+                <h1>Gérer les ustensiles</h1>
 
-	<a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
+                <a href="{{ path('admin_ustensils_new') }}" class="btn btn-primary mb-3">Ajouter un ustensile</a>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nom de l'ustensile</th>
-				<th>Image</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for ustensil in ustensils %}
-				<tr>
-					<td>{{ ustensil.name }}</td>
-					<td>{{ ustensil.picture }}</td>
-					<td>
-						<a href="{{ path('admin_ustensils_edit', {'id': ustensil.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-						<form action="{{ path('admin_ustensils_delete', {'id': ustensil.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ustensile ?');">
-							<input type="hidden" name="_method" value="DELETE">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ustensil.id) }}">
-							<button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-						</form>
-						<a href="{{ path('admin_ingredients_view', {'id': ustensil.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+                <a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
 
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom de l'ustensile</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ustensil in ustensils %}
+                            <tr>
+                                <td>{{ ustensil.name }}</td>
+                                <td>{{ ustensil.picture }}</td>
+                                <td>
+                                    <a href="{{ path('admin_ustensils_edit', {'id': ustensil.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                    <form action="{{ path('admin_ustensils_delete', {'id': ustensil.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ustensile ?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ustensil.id) }}">
+                                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                                    </form>
+                                    <a href="{{ path('admin_ingredients_view', {'id': ustensil.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
