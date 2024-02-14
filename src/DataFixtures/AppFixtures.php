@@ -27,9 +27,7 @@ class AppFixtures extends Fixture
         $categories = [];
         
 
-        // Charger les utilisateurs
-        /*for ($i = 0; $i < 2; $i++) {*/
-            
+        // Charger les utilisateurs    
             $user = new User();
             $user->setUsername($faker->userName);
             $user->setPseudo($faker->firstName);
@@ -46,15 +44,8 @@ class AppFixtures extends Fixture
             $user->setPassword('$2y$13$YvnLksuP9.Hr/vz70jDJje4UJbrdu55qG952iU6UQ.uJjaEVZL6cO');
             $manager->persist($user);
 
-            /*$user->setUsername($faker->userName);
-            $user->setPseudo($faker->firstName);        
-            $user->setPassword('password');
-            $user->setEmail($faker->email);
-            $user->setRoles([$faker->randomElement(['ROLE_USER', 'ROLE_ADMIN'])]);*/
-
             $manager->persist($user);
             $users[] = $user;
-        /*}*/
 
         $manager->flush();
 
