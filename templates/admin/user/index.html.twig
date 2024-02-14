@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les utilisateurs{% endblock %}
+{% block title %}Gérer les utilisateurs
+{% endblock %}
 
 {% block content %}
-    <h1>Gérer les utilisateurs</h1>
+	<h1>Gérer les utilisateurs</h1>
 
-    <a href="{{ path('admin_users_new') }}" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
+	<a href="{{ path('admin_users_new') }}" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
 
-    <a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
+	<a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.roles }}</td>
-                    <td>
-                        <a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                        <form action="{{ path('admin_users_delete', {'id': user.id}) }}" method="post" style="display: inline;">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                        </form>
-                        <a href="{{ path('admin_users_view', {'id': user.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nom d'utilisateur</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.username }}</td>
+					<td>{{ user.email }}</td>
+					<td>
+						{% for role in user.roles %}
+							{{ role }}
+							{% if not loop.last %},
+							{% endif %}
+						{% endfor %}
+					</td>
+					<td>
+						<a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+						<form action="{{ path('admin_users_delete', {'id': user.id}) }}" method="post" style="display: inline;">
+							<input type="hidden" name="_method" value="DELETE">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+							<button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+						</form>
+						<a href="{{ path('admin_users_view', {'id': user.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
