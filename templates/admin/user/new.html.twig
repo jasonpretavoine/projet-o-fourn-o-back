@@ -2,10 +2,24 @@
 
 {% block title %}Ajouter une nouvelle recette{% endblock %}
 
-{% block body %}
-    <h1>Ajouter une nouvelle recette</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Enregistrer</button>
-    {{ form_end(form) }}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="section">
+                <h1>Ajouter une nouvelle recette</h1>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">Enregistrer</button> <!-- Added btn-primary class -->
+                <a href="{{ path('admin_users') }}" class="btn btn-danger">Annuler</a> <!-- Added btn-danger class -->
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

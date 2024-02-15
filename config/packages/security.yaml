@@ -56,8 +56,8 @@ security:
     access_control:
 
   # ROLE_ADMIN :
-        - { path: ^/admin/(users|category|ingredient|ustensil)/new,                       roles: ROLE_ADMIN }
-        - { path: ^/admin/(users|category|ingredient|ustensil)/\d+/edit,                  roles: ROLE_ADMIN }
+        - { path: ^/admin/(users|category|ingredients|ustensils)/new,                       roles: ROLE_ADMIN }
+        - { path: ^/admin/(users|category|ingredients|ustensils)/\d+/edit,                  roles: ROLE_ADMIN }
         #- { path: ^/admin/(users|category|ingredient|ustensil)/\d+,                      roles: ROLE_ADMIN, methods: [POST] }
 
          # ROLE_MODERATOR :

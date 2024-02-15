@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la recette{% endblock %}
+{% block title %}Modifier l'ingrédient{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -12,11 +12,11 @@
 
         <div class="main">
             <div class="section">
-                <h1>Modifier la recette</h1>
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <h1>Modifier l'ingrédient</h1>
+                {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <button type="submit" class="btn btn-primary">Enregistrer</button> <!-- Added button class -->
-                <a href="{{ path('admin_recipes') }}" class="btn btn-danger">Annuler</a> <!-- Added cancel button -->
+                <a href="{{ path('admin_ingredients_index') }}" class="btn btn-danger">Annuler</a> <!-- Added cancel button -->
                 {{ form_end(form) }}
             </div>
         </div>

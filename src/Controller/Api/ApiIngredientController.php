@@ -22,7 +22,9 @@ class ApiIngredientController extends AbstractController
     #[Route('/api/ingredients/view', name: 'api_ingredients_view_get', methods: ['GET'])]
     public function getCollection(IngredientRepository $ingredientRepository): JsonResponse
     {
+        // Récupère tous les ingrédients
         $ingredients = $ingredientRepository->findAll();
+        // Retourne les ingrédients au format JSON avec le code de statut 200
         return $this->json($ingredients, 200, [],['groups' => 'get_ingredients_collection']);
     } 
 
@@ -37,7 +39,7 @@ class ApiIngredientController extends AbstractController
     #[Route('/api/ingredient/{id<\d+>}', name: 'api_ingredient_get', methods: ['GET'])]
     public function getItem(Ingredient $ingredient): JsonResponse
     {
-        
+        // Retourne l'ingrédient spécifié au format JSON avec le code de statut 200
         return $this->json($ingredient, 200, [],['groups' => 'get_ingredient_item']);
     }
 }

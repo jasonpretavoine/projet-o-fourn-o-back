@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'ustensile{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="section">
+                <h1>Détails de l'ustensile</h1>
+
+                <dl class="row">
+                    <dt class="col-sm-3">Nom :</dt>
+                    <dd class="col-sm-9">{{ ustensil.name }}</dd>
+
+                    <dt class="col-sm-3">Image :</dt>
+                    <dd class="col-sm-9">{{ ustensil.picture }}</dd>
+                </dl>
+
+                <a href="{{ path('admin_ingredients_edit', {'id': ustensil.id}) }}" class="btn btn-primary">Modifier</a>
+                <form id="delete-form-{{ ustensil.id }}" action="{{ path('admin_ingredients_delete', {'id': ustensil.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ustensil.id) }}">
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ ustensil.id }})">Supprimer</button>
+                </form>
+                <a href="{{ path('admin_ingredients_index') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(ustensilId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet ustensile ?")) {
+                document.getElementById('delete-form-' + ustensilId).submit();
+            }
+        }
+    </script>
+{% endblock %}

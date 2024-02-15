@@ -20,6 +20,7 @@ class RecipeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    // Affiche la liste des recettes dans l'interface d'administration
     #[Route('/admin/recipes', name: 'admin_recipes')]
     public function index(RecipeRepository $recipeRepository): Response
     {
@@ -29,6 +30,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    // Affiche le formulaire de création d'une nouvelle recette dans l'interface d'administration
     #[Route('/admin/recipes/new', name: 'admin_recipes_new')]
     public function new(Request $request): Response
     {
@@ -48,6 +50,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    // Affiche le formulaire d'édition d'une recette dans l'interface d'administration
     #[Route('/admin/recipes/{id}/edit', name: 'admin_recipes_edit')]
     public function edit(Request $request, Recipe $recipe): Response
     {
@@ -66,6 +69,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    // Affiche les détails d'une recette dans l'interface d'administration
     #[Route('/admin/recipes/{id}', name: 'admin_recipes_view', methods: ['GET'])]
     public function view(Recipe $recipe): Response
     {
@@ -74,6 +78,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    // Supprime une recette dans l'interface d'administration
     #[Route('/admin/recipes/{id}/delete', name: 'admin_recipes_delete', methods: ['POST'])]
     public function delete(Recipe $recipe): Response
     {
