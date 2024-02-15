@@ -29,7 +29,7 @@ class ApiIngredientController extends AbstractController
     } 
 
     /**
-     * Renvoi un ingrédient donné
+     * Renvoi un ingrédient donnée
      *
      * @param IngredientRepository $ingredientRepository
      * @return JsonResponse
