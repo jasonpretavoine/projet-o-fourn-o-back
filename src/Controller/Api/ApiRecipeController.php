@@ -4,6 +4,8 @@ namespace App\Controller\Api;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,5 +56,38 @@ class ApiRecipeController extends AbstractController
     {
         $recipes = $recipeRepository->findFiveRandom();
         return $this->json($recipes, 200, [],['groups' => 'get_recipes_random']);
+    }
+
+
+    /**
+     * Met à jour une recette existante
+     *
+     * @param Request $request
+     * @param Recipe $recipe
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     * 
+     * @Route("/api/recipe/{id<\d+>}", name="api_recipe_update_put", methods={"PUT"})
+     */
+    #[Route('/api/recipe/{id<\d+>}', name: 'api_recipe_update_put', methods: ['PUT'])]
+    public function update(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer les données JSON envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifiez si les données requises sont présentes
+        if (!isset($data['name']) || !isset($data['description'])) {
+            return $this->json(['error' => 'Données requises manquantes'], 400);
+        }
+
+        // Mettez à jour les propriétés de la recette
+        $recipe->setName($data['name']);
+        $recipe->setDescription($data['description']);
+
+        // Persistez les modifications dans la base de données
+        $entityManager->flush();
+
+        // Réponse JSON indiquant que la recette a été mise à jour avec succès
+        return $this->json(['message' => 'Recette mise à jour avec succès'], 200);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Controller\Api;
 
 use App\Entity\Review;
 use App\Repository\ReviewRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +29,7 @@ class ApiReviewController extends AbstractController
     } 
 
     /**
-     * Renvoi un commentaire donnée
+     * Renvoi un commentaire donné
      *
      * @param ReviewRepository $reviewRepository
      * @return JsonResponse
@@ -39,5 +41,37 @@ class ApiReviewController extends AbstractController
     {
         
         return $this->json($review, 200, [],['groups' => 'get_review_item']);
+    }
+
+       /**
+     * Met à jour un commentaire existant
+     *
+     * @param Request $request
+     * @param Review $review
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     * 
+     * @Route("/api/review/{id<\d+>}", name="api_review_update_put", methods={"PUT"})
+     */
+    #[Route('/api/review/{id<\d+>}', name: 'api_review_update_put', methods: ['PUT'])]
+    public function update(Request $request, Review $review, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer les données JSON envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifiez si les données requises sont présentes
+        if (!isset($data['comment'])) {
+            return $this->json(['error' => 'Données requises manquantes'], 400);
+        }
+
+        // Mettez à jour les propriétés du commentaire
+        $review->setText($data['comment']);
+        // Mettez à jour d'autres propriétés si nécessaire...
+
+        // Persistez les modifications dans la base de données
+        $entityManager->flush();
+
+        // Réponse JSON indiquant que le commentaire a été mis à jour avec succès
+        return $this->json(['message' => 'Commentaire mis à jour avec succès'], 200);
     }
 }

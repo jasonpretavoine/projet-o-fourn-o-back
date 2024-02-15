@@ -4,6 +4,8 @@ namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +29,7 @@ class ApiUserController extends AbstractController
     } 
 
     /**
-     * Renvoi un utilisateur donnée
+     * Renvoi un utilisateur donné
      *
      * @param UserRepository $userRepository
      * @return JsonResponse
@@ -39,5 +41,38 @@ class ApiUserController extends AbstractController
     {
         
         return $this->json($user, 200, [],['groups' => 'get_user_item']);
+    }
+
+        /**
+     * Crée un nouvel utilisateur
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     * 
+     * @Route("/api/user/create", name="api_user_create_post", methods={"POST"})
+     */
+    #[Route('/api/user/create', name: 'api_user_create_post', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer les données JSON envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifiez si les données requises sont présentes
+        if (!isset($data['name']) || !isset($data['email'])) {
+            return $this->json(['error' => 'Données requises manquantes'], 400);
+        }
+
+        // Créez une nouvelle instance de l'entité User
+        $user = new User();
+        $user->setUsername($data['username']);
+        $user->setEmail($data['email']);
+
+        // Persistez l'utilisateur dans la base de données
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Réponse JSON indiquant que l'utilisateur a été créé avec succès
+        return $this->json(['message' => 'Utilisateur créé avec succès'], 201);
     }
 }
