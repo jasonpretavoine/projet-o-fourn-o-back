@@ -1,5 +1,3 @@
-{# FILEPATH: /var/www/html/projet-o-fourn-o-back/templates/base.html.twig #}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +17,11 @@
 		{% endblock %}
 <body>
     <header>
-        
+        {% if app.user %}
+            <p>User: {{ app.user.username }}</p>
+        {% else %}
+            <a>Connexion</a>
+        {% endif %}
     </header>
     
     <nav>

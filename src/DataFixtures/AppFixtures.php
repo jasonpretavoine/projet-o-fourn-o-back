@@ -15,7 +15,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager, )
+    public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
 
@@ -31,9 +31,6 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setUsername($faker->userName);
             $user->setPseudo($faker->firstName);
-            // TODO, hashé le password, sinon vous ne pourrez pas vous connecter.
-            // https://symfony.com/doc/current/security/passwords.html
-            // /!\, vous ne pouvez pas faire d'injection de dépendance dans la méthode `load` pour y mettre le passwordhasher. Il faudra vous créer une propriété private qui  va le stocker $passwordHasher puis fais une public function __construct qui ELLE gerera l'injection de dépendance et mettra le hasher dans la propriété créée avant. Vous pourrez accéder au password hasher depuis la méthode load avec $this->passwordHasher() (attention aussi, adapter le code de la doc en fonction)
             $user->setPassword('password');
             $user->setEmail($faker->email);
             $user->setRole($faker->randomElement(['Utilisateur', 'Administrateur']));
@@ -115,14 +112,10 @@ class AppFixtures extends Fixture
             foreach ($selectedCategories as $selectedCategory) {
                 $recipe->addCategory($selectedCategory);
             }
-            
-
-            
 
             $manager->persist($recipe);
             $recipes[] = $recipe;
         }
-
 
         $manager->flush();
 

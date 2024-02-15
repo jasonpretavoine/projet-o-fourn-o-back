@@ -71,32 +71,33 @@
         </div>
     </div>
 
-    <!-- Bouton pour remonter en haut de la page -->
-    <button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" style="display: none;">Haut</button>
+	<!-- Bouton pour remonter en haut de la page -->
+<button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" style="display: none;">Haut</button>
 
-    <script>
-        // Fonction pour confirmer la suppression d'une recette
-        function confirmDelete(recipeId) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
-                document.getElementById('delete-form-' + recipeId).submit();
-            }
-        }
+	<script>
+		// Fonction pour confirmer la suppression d'une recette
+		function confirmDelete(recipeId) {
+			if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+				document.getElementById('delete-form-' + recipeId).submit();
+			}
+		}
 
-        // Afficher ou masquer le bouton de retour en haut de la page selon le défilement
-        window.onscroll = function() {scrollFunction()};
+		// Afficher ou masquer le bouton de retour en haut de la page selon le défilement
+		window.onscroll = function() {scrollFunction()};
 
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("scrollTopBtn").style.display = "block";
-            } else {
-                document.getElementById("scrollTopBtn").style.display = "none";
-            }
-        }
+		function scrollFunction() {
+			var scrollTopBtn = document.getElementById("scrollTopBtn");
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				scrollTopBtn.style.display = "block";
+			} else {
+				scrollTopBtn.style.display = "none";
+			}
+		}
 
-        // Fonction pour remonter en haut de la page lorsque le bouton est cliqué
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>
+		// Fonction pour remonter en haut de la page lorsque le bouton est cliqué
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
 {% endblock %}
