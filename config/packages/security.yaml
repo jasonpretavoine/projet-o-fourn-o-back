@@ -10,6 +10,7 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+
     firewalls:
         login:
             pattern: ^/api/login
@@ -27,6 +28,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            
         main:
             lazy: true
             provider: app_user_provider
@@ -51,10 +53,28 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+
+  # ROLE_ADMIN :
+        - { path: ^/admin/(users|category|ingredient|ustensil)/new,                       roles: ROLE_ADMIN }
+        - { path: ^/admin/(users|category|ingredient|ustensil)/\d+/edit,                  roles: ROLE_ADMIN }
+        #- { path: ^/admin/(users|category|ingredient|ustensil)/\d+,                      roles: ROLE_ADMIN, methods: [POST] }
+
+         # ROLE_MODERATOR :
+        - { path: ^/admin,                                                                roles: ROLE_MODERATOR }
+        - { path: ^/admin/(recipe|review)/new,                                            roles: ROLE_MODERATOR }
+        - { path: ^/admin/(recipe|review)/\d+/edit,                                       roles: ROLE_MODERATOR }
+
+        # ROLE_USER :
+        # - { path: ^/review/\d+,                                                         roles: ROLE_USER }
+
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN:         ROLE_MODERATOR
+        ROLE_MODERATOR:     ROLE_USER
 
 when@test:
     security:

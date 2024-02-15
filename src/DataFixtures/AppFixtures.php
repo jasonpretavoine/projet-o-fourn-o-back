@@ -39,6 +39,14 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setUsername($faker->userName);
             $user->setPseudo($faker->firstName);
+            $user->setEmail('moderator@moderator.com');
+            $user->setRoles(['ROLE_MODERATOR']);
+            $user->setPassword('$2y$13$5Avbi4FCck9XHQTxeuk0G.rC.rcdbcav1tdEiKxj90t7vstSc1uqK');
+            $manager->persist($user);
+
+            $user = new User();
+            $user->setUsername($faker->userName);
+            $user->setPseudo($faker->firstName);
             $user->setEmail('user@user.com');
             $user->setRoles(['ROLE_USER']);
             $user->setPassword('$2y$13$YvnLksuP9.Hr/vz70jDJje4UJbrdu55qG952iU6UQ.uJjaEVZL6cO');
