@@ -3,8 +3,6 @@
 namespace App\Controller\Api;
 
 use App\Entity\Recipe;
-use App\Entity\Review;
-use App\Repository\UserRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,36 +105,32 @@ class ApiRecipeController extends AbstractController
      * 
      * @Route("/api/recipe/create", name="api_recipe_create_post", methods={"POST"})
      */
-    #[Route('/api/recipes/{id}/review/create', name: 'api_review_create_post', methods: ['POST'])]
-    public function create(Recipe $recipe, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): JsonResponse
+    #[Route('/api/recipe/create', name: 'api_recipe_create_post', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
-
-        // TODO : mettre ça pour récupérer le user depuis JWT : 
-        // $user = $this->getUser();
-
-        // TODO : supprimer dès que on a la ligne au dessus
-        $user = $userRepository->find(3);
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['text']) || !isset($data['rating'])) {
+        if (!isset($data['name']) || !isset($data['description']) || !isset($data['instructions']) || !isset($data['difficulty']) || !isset($data['preparationTime']) || !isset($data['cookingTime']) || !isset($data['servings'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
-        // Créez une nouvelle instance de l'entité Review
-        $review = new Review();
-        $review->setText($data['text']);
-        $review->setRating($data['rating']);
-        $review->setUser($user);
-        $review->setRecipe($recipe);
-        // Initialisez d'autres propriétés si nécessaire...
+        // Créez une nouvelle instance de l'entité Recipe
+        $recipe = new Recipe();
+        $recipe->setName($data['name']);
+        $recipe->setDescription($data['description']);
+        $recipe->setInstructions($data['instructions']);
+        $recipe->setDifficulty($data['difficulty']);
+        $recipe->setPreparationTime($data['preparationTime']);
+        $recipe->setCookingTime($data['cookingTime']);
+        $recipe->setServings($data['servings']);
 
-        // Persistez le nouveau commentaire dans la base de données
-        $entityManager->persist($review);
+        // Persistez la nouvelle recette dans la base de données
+        $entityManager->persist($recipe);
         $entityManager->flush();
 
-        // Réponse JSON indiquant que le commentaire a été créé avec succès
-        return $this->json(['message' => 'Commentaire créé avec succès'], 201);
+        // Réponse JSON indiquant que la recette a été créée avec succès
+        return $this->json(['message' => 'Recette créée avec succès'], 201);
     }
 }
