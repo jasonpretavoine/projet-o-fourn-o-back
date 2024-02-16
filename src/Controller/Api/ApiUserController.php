@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiUserController extends AbstractController
 {
@@ -53,29 +54,26 @@ class ApiUserController extends AbstractController
      * @Route("/api/user/create", name="api_user_create_post", methods={"POST"})
      */
     #[Route('/api/user/create', name: 'api_user_create_post', methods: ['POST'])]
-    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
-        // Récupérer les données JSON envoyées dans la requête
+
         $data = json_decode($request->getContent(), true);
 
-        // Vérifiez si les données requises sont présentes
         if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email']) ) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
-        // Créez une nouvelle instance de l'entité User
         $user = new User();
         $user->setUsername($data['username']);
         $user->setPseudo($data['pseudo']);
         $user->setPassword($data['password']);
+        $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
         $user->setEmail($data['email']);
-        $user->setRoles($data['role']);
-
-        // Persistez l'utilisateur dans la base de données
+        $user->setRoles(['ROLE_USER']);
+        
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Réponse JSON indiquant que l'utilisateur a été créé avec succès
         return $this->json(['message' => 'Utilisateur créé avec succès'], 201);
     }
 }
