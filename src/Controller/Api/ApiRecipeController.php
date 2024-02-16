@@ -43,21 +43,6 @@ class ApiRecipeController extends AbstractController
         return $this->json($recipe, 200, [], ['groups' => 'get_recipe_item']);
     }
 
-    /**
-     * Renvoi une liste de recettes aléatoires
-     *
-     * @param RecipeRepository $recipeRepository
-     * @return JsonResponse
-     * 
-     * @Route("/api/recipes/random", name="api_recipes_random_get", methods={"GET"})  
-     */
-    #[Route('/api/recipes/random', name: 'api_recipes_random_get', methods: ['GET'])]
-    public function getRandomRecipe(RecipeRepository $recipeRepository): JsonResponse
-    {
-        $recipes = $recipeRepository->findFiveRandom();
-        return $this->json($recipes, 200, [], ['groups' => 'get_recipes_random']);
-    }
-
 
     /**
      * Met à jour une recette existante
@@ -69,7 +54,7 @@ class ApiRecipeController extends AbstractController
      * 
      * @Route("/api/recipe/{id<\d+>}", name="api_recipe_update_put", methods={"PUT"})
      */
-    #[Route('/api/recipe/{id<\d+>}', name: 'api_recipe_update_put', methods: ['PUT'])]
+    #[Route('/api/recipe/{id<\d+>}/update', name: 'api_recipe_update_put', methods: ['PUT'])]
     public function update(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): JsonResponse
     {
         // Récupérer les données JSON envoyées dans la requête

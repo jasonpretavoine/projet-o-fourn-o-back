@@ -2,7 +2,9 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Recipe;
 use App\Entity\Review;
+use App\Repository\UserRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,9 +87,15 @@ class ApiReviewController extends AbstractController
      * 
      * @Route("/api/review/create", name="api_review_create_post", methods={"POST"})
      */
-    #[Route('/api/review/create', name: 'api_review_create_post', methods: ['POST'])]
-    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    #[Route('/api/recipes/{id}/review/create', name: 'api_review_create_post', methods: ['POST'])]
+    public function create(Recipe $recipe, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): JsonResponse
     {
+
+        // TODO : mettre ça pour récupérer le user depuis JWT : 
+        // $user = $this->getUser();
+
+        // TODO : supprimer dès que on a la ligne au dessus
+        $user = $userRepository->find(3);
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
 
@@ -100,6 +108,8 @@ class ApiReviewController extends AbstractController
         $review = new Review();
         $review->setText($data['text']);
         $review->setRating($data['rating']);
+        $review->setUser($user);
+        $review->setRecipe($recipe);
         // Initialisez d'autres propriétés si nécessaire...
 
         // Persistez le nouveau commentaire dans la base de données
