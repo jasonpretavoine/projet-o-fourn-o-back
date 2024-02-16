@@ -55,7 +55,7 @@ class ApiReviewController extends AbstractController
      * 
      * @Route("/api/review/{id<\d+>}", name="api_review_update_put", methods={"PUT"})
      */
-    #[Route('/api/review/{id<\d+>}', name: 'api_review_update_put', methods: ['PUT'])]
+    #[Route('/api/review/{id<\d+>}/update', name: 'api_review_update_put', methods: ['PUT'])]
     public function update(Request $request, Review $review, EntityManagerInterface $entityManager): JsonResponse
     {
         // Récupérer les données JSON envoyées dans la requête
