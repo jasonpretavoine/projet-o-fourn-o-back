@@ -34,4 +34,3 @@ Doctrine demande si on veut purger la base de donnée, répondre ```yes```
 
 Le backoffice est installé.
 
-
