@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la recette{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center"> <!-- Added text-center class -->
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="section">
+                <h1>Modifier la recette</h1>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">Enregistrer</button> <!-- Added button class -->
+                <a href="{{ path('admin_recipes') }}" class="btn btn-danger">Annuler</a> <!-- Added cancel button -->
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

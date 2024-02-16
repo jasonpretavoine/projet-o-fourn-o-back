@@ -1,16 +1,41 @@
-{# templates/api_recipe/base.html.twig #}
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Recipes</title>
-</head>
-<body>
-    <h1>Welcome to API Recipes!</h1>
-    <div>
-        {% block content %}{% endblock %}
-    </div>
-</body>
+<html>
+	<head>
+		<title>Gestion O'fourn'O
+		</title>
+	</head>
+	{% block stylesheets %}
+		<!-- CSS Bootstrap -->
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+		<!-- Icônes Bootstrap -->
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+		<!-- Notre CSS personnalisé -->
+		<link
+		rel="stylesheet" href="{{ asset('css/oflix.css') }}">
+	<!-- favicon -->
+	{% endblock %}
+	<body>
+		<a href="{{ path('app_login') }}" class="btn btn-warning mb-3">Login</a>
+		<a href="{{ path('app_logout') }}" class="btn btn-danger mb-3">Logout</a>
+		<header>
+			{% if app.user %}
+				<p>User:
+					{{ app.user.username }}</p>
+			{% else %}
+				<a>Connexion</a>
+			{% endif %}
+		</header>
+
+		<nav>
+			<ul></ul>
+		</nav>
+		{% block body %}{% endblock %}
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer></footer>
+	</body>
 </html>

@@ -25,27 +25,40 @@ class AppFixtures extends Fixture
         $ingredients = [];
         $ustensils = [];
         $categories = [];
+        
 
-        // Charger les utilisateurs
-        for ($i = 0; $i < 15; $i++) {
+        // Charger les utilisateurs    
             $user = new User();
             $user->setUsername($faker->userName);
             $user->setPseudo($faker->firstName);
-            // TODO, hashé le password, sinon vous ne pourrez pas vous connecter.
-            // https://symfony.com/doc/current/security/passwords.html
-            // /!\, vous ne pouvez pas faire d'injection de dépendance dans la méthode `load` pour y mettre le passwordhasher. Il faudra vous créer une propriété private qui  va le stocker $passwordHasher puis fais une public function __construct qui ELLE gerera l'injection de dépendance et mettra le hasher dans la propriété créée avant. Vous pourrez accéder au password hasher depuis la méthode load avec $this->passwordHasher() (attention aussi, adapter le code de la doc en fonction)
-            $user->setPassword('password');
-            $user->setEmail($faker->email);
-            $user->setRole($faker->randomElement(['Utilisateur', 'Administrateur']));
+            $user->setEmail('admin@admin.com');
+            $user->setRoles(['ROLE_ADMIN']);
+            $user->setPassword('$2y$13$120hw7dkuZP41vVUNn5lH.Z8xZ4qpamoeN.Kx20ljIkFe86xBGqXO');
+            $manager->persist($user);
+
+            $user = new User();
+            $user->setUsername($faker->userName);
+            $user->setPseudo($faker->firstName);
+            $user->setEmail('moderator@moderator.com');
+            $user->setRoles(['ROLE_MODERATOR']);
+            $user->setPassword('$2y$13$5Avbi4FCck9XHQTxeuk0G.rC.rcdbcav1tdEiKxj90t7vstSc1uqK');
+            $manager->persist($user);
+
+            $user = new User();
+            $user->setUsername($faker->userName);
+            $user->setPseudo($faker->firstName);
+            $user->setEmail('user@user.com');
+            $user->setRoles(['ROLE_USER']);
+            $user->setPassword('$2y$13$YvnLksuP9.Hr/vz70jDJje4UJbrdu55qG952iU6UQ.uJjaEVZL6cO');
+            $manager->persist($user);
 
             $manager->persist($user);
             $users[] = $user;
-        }
 
         $manager->flush();
 
         // Charger les catégories
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $category = new Category();
             $category->setName($faker->word);
 
@@ -71,7 +84,7 @@ class AppFixtures extends Fixture
         // Charger les ustensiles
         for ($i = 0; $i < 15; $i++) {
             $ustensil = new Ustensil();
-            $ustensil->setName($faker->word);
+            $ustensil->setName($faker->unique()->word);
             $ustensil->setPicture($faker->imageUrl(800, 600));
 
             $manager->persist($ustensil);
@@ -81,9 +94,9 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         // Charger les recettes
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $recipe = new Recipe();
-            $recipe->setName($faker->sentence(3));
+            $recipe->setName($faker->unique()->sentence(3));
             $recipe->setDescription($faker->paragraph(2));
             $recipe->setPicture($faker->imageUrl());
             $recipe->setInstructions($faker->paragraph(4));
