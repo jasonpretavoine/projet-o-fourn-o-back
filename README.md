@@ -14,9 +14,11 @@ Se placer dans la branche ```develop``` avec la commande ```git checkout develop
 
 Créer à la racine un fichier ```.env.local```
 
-Copier à l'intérieur de ce fichier la ligne suivante : 
+Copier à l'intérieur de ce fichier les lignes suivantes : 
 
 ```DATABASE_URL="mysql://root:root@127.0.0.1:3306/ofourno?serverVersion=10.3.39-MariaDB&charset=utf8mb4"```
+```APP_SECRET=b7b293ec669148d5c9e6a72cd369f971```
+```JWT_PASSPHRASE=47abcb10c9ca0536285214085819321db8be98bfc38d5ceb4b14138a84e571ba```
 
 Dans le Terminal tapez ```mysql -V``` pour connaitre la version de Mysql, puis modifier la version de MariaDB dans la ligne de code au dessus.
 
