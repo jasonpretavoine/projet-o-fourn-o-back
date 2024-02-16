@@ -69,7 +69,7 @@ class ApiUserController extends AbstractController
         $user->setPseudo($data['pseudo']);
         $user->setPassword($data['password']);
         $user->setEmail($data['email']);
-        $user->setRole($data['role']);
+        $user->setRoles($data['role']);
 
         // Persistez l'utilisateur dans la base de données
         $entityManager->persist($user);

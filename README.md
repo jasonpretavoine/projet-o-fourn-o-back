@@ -32,36 +32,4 @@ Doctrine demande si on veut purger la base de donnée, répondre ```yes```
 
 Le backoffice est installé.
 
-## Liste des routes exploitables : 
 
-Racine : ```http://localhost/projet-o-fourn-o-back/public/```
-
-### Recettes
-
-Toutes les recettes : ```/api/recipes/view```
-
-Recette par Id : ```/api/recipe/(Id_de_la_recette)```
-
-### Ingrédients
-
-Tous les ingrédients : ```/api/ingredients/view```
-
-Ingrédient par Id : ```/api/ingredient/(Id_de_l_ingredient)```
-
-### Ustensiles
-
-Tous les ustensiles : ```/api/ustensils/view```
-
-Ustensiles par Id : ```/api/ustensil/(Id_de_l_ustensile)```
-
-### Utilisateurs
-
-Tous les utilisateurs : ```/api/users/view```
-
-Utilisateur par Id : ```/api/user/(Id_de_l_utilisateur)```
-
-### Commentaires
-
-Tous les commentaires : ```/api/reviews/view```
-
-Commentaire par Id : ```/api/review/(Id_du_commentaire)```

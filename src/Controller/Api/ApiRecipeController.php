@@ -69,7 +69,7 @@ class ApiRecipeController extends AbstractController
      * 
      * @Route("/api/recipe/{id<\d+>}", name="api_recipe_update_put", methods={"PUT"})
      */
-    #[Route('/api/recipe/{id<\d+>}', name: 'api_recipe_update_put', methods: ['PUT'])]
+    #[Route('/api/recipe/{id<\d+>}/update', name: 'api_recipe_update_put', methods: ['PUT'])]
     public function update(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): JsonResponse
     {
         // Récupérer les données JSON envoyées dans la requête
