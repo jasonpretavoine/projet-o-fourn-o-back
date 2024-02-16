@@ -59,7 +59,7 @@ class ApiUserController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email']) || !isset($data['role'])) {
+        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email']) ) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
@@ -69,7 +69,6 @@ class ApiUserController extends AbstractController
         $user->setPseudo($data['pseudo']);
         $user->setPassword($data['password']);
         $user->setEmail($data['email']);
-        $user->setRole($data['role']);
 
         // Persistez l'utilisateur dans la base de données
         $entityManager->persist($user);
