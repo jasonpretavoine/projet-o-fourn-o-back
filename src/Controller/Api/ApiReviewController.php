@@ -25,8 +25,8 @@ class ApiReviewController extends AbstractController
     public function getCollection(ReviewRepository $reviewRepository): JsonResponse
     {
         $reviews = $reviewRepository->findAll();
-        return $this->json($reviews, 200, [],['groups' => 'get_reviews_collection']);
-    } 
+        return $this->json($reviews, 200, [], ['groups' => 'get_reviews_collection']);
+    }
 
     /**
      * Renvoi un commentaire donné
@@ -39,11 +39,11 @@ class ApiReviewController extends AbstractController
     #[Route('/api/review/{id<\d+>}', name: 'api_review_get', methods: ['GET'])]
     public function getItem(Review $review): JsonResponse
     {
-        
-        return $this->json($review, 200, [],['groups' => 'get_review_item']);
+
+        return $this->json($review, 200, [], ['groups' => 'get_review_item']);
     }
 
-       /**
+    /**
      * Met à jour un commentaire existant
      *
      * @param Request $request
@@ -60,12 +60,13 @@ class ApiReviewController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['comment'])) {
+        if (!isset($data['text']) || !isset($data['rating'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
         // Mettez à jour les propriétés du commentaire
-        $review->setText($data['comment']);
+        $review->setText($data['text']);
+        $review->setRating($data['rating']);
         // Mettez à jour d'autres propriétés si nécessaire...
 
         // Persistez les modifications dans la base de données
@@ -75,7 +76,7 @@ class ApiReviewController extends AbstractController
         return $this->json(['message' => 'Commentaire mis à jour avec succès'], 200);
     }
 
-        /**
+    /**
      * Crée un nouveau commentaire
      *
      * @param Request $request
@@ -99,6 +100,7 @@ class ApiReviewController extends AbstractController
         $review = new Review();
         $review->setText($data['text']);
         $review->setRating($data['rating']);
+        // Initialisez d'autres propriétés si nécessaire...
 
         // Persistez le nouveau commentaire dans la base de données
         $entityManager->persist($review);

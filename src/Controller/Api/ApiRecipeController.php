@@ -25,8 +25,8 @@ class ApiRecipeController extends AbstractController
     public function getCollection(RecipeRepository $recipeRepository): JsonResponse
     {
         $recipes = $recipeRepository->findAll();
-        return $this->json($recipes, 200, [],['groups' => 'get_recipes_collection']);
-    }   
+        return $this->json($recipes, 200, [], ['groups' => 'get_recipes_collection']);
+    }
 
     /**
      * Renvoi une recette donnée
@@ -39,11 +39,11 @@ class ApiRecipeController extends AbstractController
     #[Route('/api/recipe/{id<\d+>}', name: 'api_recipe_get', methods: ['GET'])]
     public function getItem(Recipe $recipe): JsonResponse
     {
-        
-        return $this->json($recipe, 200, [],['groups' => 'get_recipe_item']);
+
+        return $this->json($recipe, 200, [], ['groups' => 'get_recipe_item']);
     }
 
-     /**
+    /**
      * Renvoi une liste de recettes aléatoires
      *
      * @param RecipeRepository $recipeRepository
@@ -55,7 +55,7 @@ class ApiRecipeController extends AbstractController
     public function getRandomRecipe(RecipeRepository $recipeRepository): JsonResponse
     {
         $recipes = $recipeRepository->findFiveRandom();
-        return $this->json($recipes, 200, [],['groups' => 'get_recipes_random']);
+        return $this->json($recipes, 200, [], ['groups' => 'get_recipes_random']);
     }
 
 
@@ -76,13 +76,18 @@ class ApiRecipeController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['name']) || !isset($data['description'])) {
+        if (!isset($data['name']) || !isset($data['description']) || !isset($data['instructions']) || !isset($data['difficulty']) || !isset($data['preparationTime']) || !isset($data['cookingTime']) || !isset($data['servings'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
         // Mettez à jour les propriétés de la recette
         $recipe->setName($data['name']);
         $recipe->setDescription($data['description']);
+        $recipe->setInstructions($data['instructions']);
+        $recipe->setDifficulty($data['difficulty']);
+        $recipe->setPreparationTime($data['preparationTime']);
+        $recipe->setCookingTime($data['cookingTime']);
+        $recipe->setServings($data['servings']);
 
         // Persistez les modifications dans la base de données
         $entityManager->flush();
@@ -91,7 +96,7 @@ class ApiRecipeController extends AbstractController
         return $this->json(['message' => 'Recette mise à jour avec succès'], 200);
     }
 
-        /**
+    /**
      * Crée une nouvelle recette
      *
      * @param Request $request
@@ -107,7 +112,7 @@ class ApiRecipeController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['name']) || !isset($data['description'])) {
+        if (!isset($data['name']) || !isset($data['description']) || !isset($data['instructions']) || !isset($data['difficulty']) || !isset($data['preparationTime']) || !isset($data['cookingTime']) || !isset($data['servings'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
@@ -115,6 +120,11 @@ class ApiRecipeController extends AbstractController
         $recipe = new Recipe();
         $recipe->setName($data['name']);
         $recipe->setDescription($data['description']);
+        $recipe->setInstructions($data['instructions']);
+        $recipe->setDifficulty($data['difficulty']);
+        $recipe->setPreparationTime($data['preparationTime']);
+        $recipe->setCookingTime($data['cookingTime']);
+        $recipe->setServings($data['servings']);
 
         // Persistez la nouvelle recette dans la base de données
         $entityManager->persist($recipe);

@@ -336,4 +336,51 @@ class Recipe
 
         return $this;
     }
+
+        /**
+     * Calcule la note moyenne de la recette
+     *
+     * @return float|null
+     */
+    public function getAverageRating(): ?float
+    {
+        $totalRatings = count($this->reviews);
+        if ($totalRatings === 0) {
+            return null;
+        }
+
+        $totalSum = 0;
+        foreach ($this->reviews as $review) {
+            $totalSum += $review->getRating();
+        }
+
+        return $totalSum / $totalRatings;
+    }
+
+    /**
+     * Ajoute une critique à la recette et met à jour la note moyenne
+     *
+     * @param Review $review
+     * @return static
+     */
+    public function addReviewAndUpdateRating(Review $review): static
+    {
+        $this->addReview($review);
+        $this->updateRating();
+
+        return $this;
+    }
+
+    /**
+     * Met à jour la note moyenne de la recette
+     *
+     * @return static
+     */
+    public function updateRating(): static
+    {
+        $averageRating = $this->getAverageRating();
+        $this->setRating($averageRating);
+
+        return $this;
+    }
 }

@@ -25,8 +25,8 @@ class ApiUserController extends AbstractController
     public function getCollection(UserRepository $userRepository): JsonResponse
     {
         $users = $userRepository->findAll();
-        return $this->json($users, 200, [],['groups' => 'get_users_collection']);
-    } 
+        return $this->json($users, 200, [], ['groups' => 'get_users_collection']);
+    }
 
     /**
      * Renvoi un utilisateur donné
@@ -39,11 +39,11 @@ class ApiUserController extends AbstractController
     #[Route('/api/user/{id<\d+>}', name: 'api_user_get', methods: ['GET'])]
     public function getItem(User $user): JsonResponse
     {
-        
-        return $this->json($user, 200, [],['groups' => 'get_user_item']);
+
+        return $this->json($user, 200, [], ['groups' => 'get_user_item']);
     }
 
-        /**
+    /**
      * Crée un nouvel utilisateur
      *
      * @param Request $request
@@ -59,14 +59,17 @@ class ApiUserController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['name']) || !isset($data['email'])) {
+        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email']) || !isset($data['role'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
         // Créez une nouvelle instance de l'entité User
         $user = new User();
         $user->setUsername($data['username']);
+        $user->setPseudo($data['pseudo']);
+        $user->setPassword($data['password']);
         $user->setEmail($data['email']);
+        $user->setRole($data['role']);
 
         // Persistez l'utilisateur dans la base de données
         $entityManager->persist($user);
