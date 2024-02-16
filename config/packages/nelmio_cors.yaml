@@ -12,8 +12,8 @@ nelmio_cors:
         skip_same_as_origin: true
     paths:
         '^/api/':
-            allow_origin: ['']
-            allow_headers: ['']
+            allow_origin: ['*']
+            allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
         '^/':
