@@ -74,4 +74,37 @@ class ApiReviewController extends AbstractController
         // Réponse JSON indiquant que le commentaire a été mis à jour avec succès
         return $this->json(['message' => 'Commentaire mis à jour avec succès'], 200);
     }
+
+        /**
+     * Crée un nouveau commentaire
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     * 
+     * @Route("/api/review/create", name="api_review_create_post", methods={"POST"})
+     */
+    #[Route('/api/review/create', name: 'api_review_create_post', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer les données JSON envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifiez si les données requises sont présentes
+        if (!isset($data['text']) || !isset($data['rating'])) {
+            return $this->json(['error' => 'Données requises manquantes'], 400);
+        }
+
+        // Créez une nouvelle instance de l'entité Review
+        $review = new Review();
+        $review->setText($data['text']);
+        $review->setRating($data['rating']);
+
+        // Persistez le nouveau commentaire dans la base de données
+        $entityManager->persist($review);
+        $entityManager->flush();
+
+        // Réponse JSON indiquant que le commentaire a été créé avec succès
+        return $this->json(['message' => 'Commentaire créé avec succès'], 201);
+    }
 }

@@ -90,4 +90,37 @@ class ApiRecipeController extends AbstractController
         // Réponse JSON indiquant que la recette a été mise à jour avec succès
         return $this->json(['message' => 'Recette mise à jour avec succès'], 200);
     }
+
+        /**
+     * Crée une nouvelle recette
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     * 
+     * @Route("/api/recipe/create", name="api_recipe_create_post", methods={"POST"})
+     */
+    #[Route('/api/recipe/create', name: 'api_recipe_create_post', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer les données JSON envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifiez si les données requises sont présentes
+        if (!isset($data['name']) || !isset($data['description'])) {
+            return $this->json(['error' => 'Données requises manquantes'], 400);
+        }
+
+        // Créez une nouvelle instance de l'entité Recipe
+        $recipe = new Recipe();
+        $recipe->setName($data['name']);
+        $recipe->setDescription($data['description']);
+
+        // Persistez la nouvelle recette dans la base de données
+        $entityManager->persist($recipe);
+        $entityManager->flush();
+
+        // Réponse JSON indiquant que la recette a été créée avec succès
+        return $this->json(['message' => 'Recette créée avec succès'], 201);
+    }
 }
