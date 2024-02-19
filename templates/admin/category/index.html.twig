@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les catégories{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="section">
+                <h1>Gérer les catégories</h1>
+
+                <a href="{{ path('admin_ingredients_new') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
+
+                <a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                    <form action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')">Supprimer</button>
+                                    </form>
+                                    <a href="{{ path('admin_ingredients_view', {'id': ingredient.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
