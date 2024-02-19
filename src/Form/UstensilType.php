@@ -24,17 +24,8 @@ class UstensilType extends AbstractType
             ])
             ->add('picture', null, [
                 'label' => 'Image',
-            ])
-            ->add('recipe', EntityType::class, [
-                'class' => Recipe::class,
-                'choice_label' => 'name', // Utilisez la propriété 'name' de la classe Recipe comme étiquette de choix
-                'multiple' => true,
-                'label' => 'Recette',
-                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
-                    return $er->createQueryBuilder('r')
-                        ->orderBy('r.name', 'ASC');
-                },
             ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

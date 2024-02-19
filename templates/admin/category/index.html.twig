@@ -14,7 +14,7 @@
             <div class="section">
                 <h1>Gérer les catégories</h1>
 
-                <a href="{{ path('admin_ingredients_new') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
+                <a href="{{ path('admin_categories_new') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
 
                 <a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
 
@@ -30,13 +30,13 @@
                             <tr>
                                 <td>{{ category.name }}</td>
                                 <td>
-                                    <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                                    <form action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
+                                    <a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                    <form action="{{ path('admin_categories_delete', {'id': category.id}) }}" method="post" style="display: inline;">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')">Supprimer</button>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">Supprimer</button>
                                     </form>
-                                    <a href="{{ path('admin_ingredients_view', {'id': ingredient.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+                                    <a href="{{ path('admin_categories_view', {'id': category.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
                                 </td>
                             </tr>
                         {% endfor %}
