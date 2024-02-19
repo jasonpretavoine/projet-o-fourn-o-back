@@ -38,9 +38,10 @@ Racine : ```http://localhost/projet-o-fourn-o-back/public/``` , adapter l'hôte.
 
 ### Commentaires
 
-| Descriptions                 | Routes                                               |
-| ---------------------------- | ---------------------------------------------------- |
-| Tous les commentaires        | ```/api/reviews/view```                              |
-| Commentaire par Id           | ```/api/review/(Id_du_commentaire)```                |
-| Mise à jour d'un commentaire | ```/api/review/(Id_du_commentaire)/update```         |
-| Création d'un commentaire    | ```/api/recipes/(Id_du_commentaire)/review/create``` |
+| Descriptions                           | Routes                                               |
+| -------------------------------------- | ---------------------------------------------------- |
+| Tous les commentaires                  | ```/api/reviews/view```                              |
+| Commentaire par Id                     | ```/api/review/(Id_du_commentaire)```                |
+| Mise à jour d'un commentaire           | ```/api/review/(Id_du_commentaire)/update```         |
+| Création d'un commentaire              | ```/api/recipes/(Id_du_commentaire)/review/create``` |
+| Nombre de commentaires sur une recette | ```/api/recipes/{id}/review/count```                 |
