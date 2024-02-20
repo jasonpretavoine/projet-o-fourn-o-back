@@ -119,4 +119,12 @@ class ApiReviewController extends AbstractController
         // Réponse JSON indiquant que le commentaire a été créé avec succès
         return $this->json(['message' => 'Commentaire créé avec succès'], 201);
     }
+
+    #[Route('/api/recipes/{id}/review/count', name: 'api_review_count_get', methods: ['GET'])]
+    public function countReviews(Recipe $recipe): JsonResponse
+    {
+        $reviewsCount = count($recipe->getReviews());
+
+        return $this->json(['count' => $reviewsCount]);
+    }
 }

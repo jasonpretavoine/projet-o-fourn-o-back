@@ -22,22 +22,9 @@ class IngredientType extends AbstractType
             ])
             ->add('metricUnit', null, [
                 'label' => 'Unité métrique',
-            ])
-            ->add('recipe', EntityType::class, [
-                'class' => Recipe::class,
-                'choice_label' => function (Recipe $recipe) {
-                    return $recipe->getName();
-                },
-                'multiple' => true,
-                'label' => 'Recette(s)',
-                
-            ])
-            ->add('_token', HiddenType::class, [
-                'mapped' => false,
-            ])
-        ;
-    }
-
+            ]);
+    }      
+            
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

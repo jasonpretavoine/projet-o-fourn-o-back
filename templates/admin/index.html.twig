@@ -3,27 +3,29 @@
 {% block title %}Gérer les recettes{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="header">
-            <div class="logo text-center">
-                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
-            </div>
-        </div>
+	<div class="container">
+		<div class="header">
+			<div class="logo text-center">
+				<img src="{{ asset('images/logo.svg') }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
+			</div>
+		</div>
 
-        <div class="main">
-            <div class="section">
-                <h2>Gérer les recettes</h2>
 
-                <div class="d-flex justify-content-between mb-3">
-                    <div>
-                        <a href="{{ path('admin_users') }}" class="btn btn-primary mr-3">Voir les utilisateur.ices</a>
-                        <a href="{{ path('admin_ingredients_index') }}" class="btn btn-primary mr-3">Voir les ingrédients</a>
-                        <a href="{{ path('admin_ustensils_index') }}" class="btn btn-primary mr-3">Voir les ustensiles</a>
-                    </div>
-                    <div>
-                        <a href="{{ path('admin_recipes_new') }}" class="btn btn-success">Ajouter une recette</a>
-                    </div>
-                </div>
+		<div class="main">
+			<div class="section">
+				<h2>Gérer les recettes</h2>
+
+				<div class="d-flex justify-content-between mb-3">
+					<div>
+						<a href="{{ path('admin_users') }}" class="btn btn-primary mr-3">Voir les utilisateur.ices</a>
+						<a href="{{ path('admin_ingredients_index') }}" class="btn btn-primary mr-3">Voir les ingrédients</a>
+						<a href="{{ path('admin_ustensils_index') }}" class="btn btn-primary mr-3">Voir les ustensiles</a>
+						<a href="{{ path('admin_categories_index') }}" class="btn btn-primary mr-3">Voir les catégories</a>
+					</div>
+					<div>
+						<a href="{{ path('admin_recipes_new') }}" class="btn btn-success">Ajouter une recette</a>
+					</div>
+				</div>
 
                 <table class="table">
                     <thead>
