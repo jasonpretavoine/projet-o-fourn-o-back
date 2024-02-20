@@ -140,12 +140,13 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         // Charger les avis
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $review = new Review();
             $review->setText($faker->paragraph);
             $review->setRating($faker->numberBetween(1, 5));
             $review->setUser($faker->randomElement($users)); // Add this line
             $review->setRecipe($faker->randomElement($recipes));
+            $review->setStatus($faker->boolean);
 
             $manager->persist($review);
         }

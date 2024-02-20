@@ -4,19 +4,48 @@
 
 {% block content %}
     <div class="container">
-        <h1>Avis de la recette {{ recipe.name }}</h1>
+        <div class="header">
+            <div class="logo text-center">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
+            </div>
+        </div>
 
-        {% if reviews is empty %}
-            <p>Aucun avis n'a été publié pour cette recette.</p>
-        {% else %}
-            <ul class="list-group">
-                {% for review in reviews %}
-                    <li class="list-group-item">
-                        {{ review.text }}
-                        <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        <div class="main">
+            <div class="section">
+                <h1>Avis de la recette {{ recipe.name }}</h1>
+
+                <a href="{{ path('app_admin') }}" class="btn btn-secondary mb-3">Revenir à la liste des recettes</a>
+
+                {% if reviews is empty %}
+                    <p>Aucun avis n'a été publié pour cette recette.</p>
+                {% else %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Commentaire</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for review in reviews %}
+                                <tr>
+                                    <td>{{ review.text }}</td>
+                                    <td>{{ review.status ? 'Approuvé' : 'Rejeté' }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                         <form action="{{ path('admin_review_delete', {'id': review.id}) }}" method="post" style="display: inline;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

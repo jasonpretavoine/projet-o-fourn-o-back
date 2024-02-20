@@ -17,8 +17,12 @@
 	<!-- favicon -->
 	{% endblock %}
 	<body>
-		<a href="{{ path('app_login') }}" class="btn btn-warning mb-3">Login</a>
-		<a href="{{ path('app_logout') }}" class="btn btn-danger mb-3">Logout</a>
+		<div class="container">
+			{% if not app.user %}
+				<a href="{{ path('app_login') }}" class="btn btn-warning mb-3">Login</a>
+			{% endif %}
+			<a href="{{ path('app_logout') }}" class="btn btn-danger mb-3">Logout</a>
+		
 		<header>
 			{% if app.user %}
 				<p>User:
@@ -27,6 +31,7 @@
 				<a>Connexion</a>
 			{% endif %}
 		</header>
+		</div>
 
 		<nav>
 			<ul></ul>

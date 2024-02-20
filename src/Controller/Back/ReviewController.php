@@ -22,31 +22,37 @@ class ReviewController extends AbstractController
         $this->reviewRepository = $reviewRepository;
     }
 
-    #[Route('/admin/reviews/{recipeId}', name: 'admin_reviews')]
-    public function index(int $recipeId): Response
-    {
-        $reviews = $this->reviewRepository->findBy(['recipe' => $recipeId]);
-
-        return $this->render('admin/review/index.html.twig', [
-            'reviews' => $reviews,
-        ]);
-    }
 
     #[Route('/admin/review/{id}/edit', name: 'admin_review_edit')]
     public function edit(Request $request, Review $review): Response
     {
         $form = $this->createForm(ReviewStatusType::class, $review);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-
-            return $this->redirectToRoute('admin_reviews', ['recipeId' => $review->getRecipe()->getId()]);
+    
+            // Récupérer l'identifiant de la recette associée au commentaire modifié
+            $recipeId = $review->getRecipe()->getId();
+    
+            return $this->redirectToRoute('admin_recipes_reviews', ['id' => $recipeId]);
         }
-
+    
         return $this->render('admin/review/edit.html.twig', [
             'review' => $review,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/review/{id}/delete', name: 'admin_review_delete', methods: ['POST'])]
+    public function delete(Request $request, Review $review, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($review);
+            $entityManager->flush();
+        }
+    
+        // Redirection vers la page précédente après la suppression
+        return $this->redirectToRoute('admin_recipes_reviews', ['id' => $review->getRecipe()->getId()]);
     }
 }
