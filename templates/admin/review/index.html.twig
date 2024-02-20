@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les commentaires{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Gérer les commentaires</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contenu</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.content }}</td>
+                        <td>{{ review.status }}</td>
+                        <td>
+                            <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

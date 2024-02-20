@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis de la recette {{ recipe.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Avis de la recette {{ recipe.name }}</h1>
+
+        {% if reviews is empty %}
+            <p>Aucun avis n'a été publié pour cette recette.</p>
+        {% else %}
+            <ul class="list-group">
+                {% for review in reviews %}
+                    <li class="list-group-item">
+                        {{ review.text }}
+                        <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,106 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les recettes
-{% endblock %}
+{% block title %}Gérer les recettes{% endblock %}
 
 {% block content %}
-	<div class="container">
-		<div class="header">
-			<div class="logo text-center">
-				<img src="{{ asset('images/logo.svg') }}" alt="Logo">
-			</div>
-		</div>
+    <div class="container">
+        <div class="header">
+            <div class="logo text-center">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+            </div>
+        </div>
 
-		<div class="main">
-			<div class="section">
-				<h2>Gérer les recettes</h2>
+        <div class="main">
+            <div class="section">
+                <h2>Gérer les recettes</h2>
 
-				<div class="d-flex justify-content-between mb-3">
-					<div>
-						<a href="{{ path('admin_users') }}" class="btn btn-primary mr-3">Voir les utilisateur.ices</a>
-						<a href="{{ path('admin_ingredients_index') }}" class="btn btn-primary mr-3">Voir les ingrédients</a>
-						<a href="{{ path('admin_ustensils_index') }}" class="btn btn-primary mr-3">Voir les ustensiles</a>
-					</div>
-					<div>
-						<a href="{{ path('admin_recipes_new') }}" class="btn btn-success">Ajouter une recette</a>
-					</div>
-				</div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        <a href="{{ path('admin_users') }}" class="btn btn-primary mr-3">Voir les utilisateur.ices</a>
+                        <a href="{{ path('admin_ingredients_index') }}" class="btn btn-primary mr-3">Voir les ingrédients</a>
+                        <a href="{{ path('admin_ustensils_index') }}" class="btn btn-primary mr-3">Voir les ustensiles</a>
+                    </div>
+                    <div>
+                        <a href="{{ path('admin_recipes_new') }}" class="btn btn-success">Ajouter une recette</a>
+                    </div>
+                </div>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Nom</th>
-							<th>Image</th>
-							<th>Description</th>
-							<th>Instructions</th>
-							<th>Temps de préparation</th>
-							<th>Temps de cuisson</th>
-							<th>Difficulté</th>
-							<th>Portions</th>
-							<th>Évaluation</th>
-							<th>Statut</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for recipe in recipes %}
-							<tr>
-								<td>{{ recipe.name }}</td>
-								<td>{{ recipe.picture }}</td>
-								<td>{{ recipe.description }}</td>
-								<td>{{ recipe.instructions }}</td>
-								<td>{{ recipe.preparationTime }}</td>
-								<td>{{ recipe.cookingTime }}</td>
-								<td>{{ recipe.difficulty }}</td>
-								<td>{{ recipe.servings }}</td>
-								<td>{{ recipe.rating }}</td>
-								<td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
-								<td>
-									<a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-									<form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
-										<input type="hidden" name="_method" value="DELETE">
-										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-										<button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
-									</form>
-									<a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Instructions</th>
+                            <th>Temps de préparation</th>
+                            <th>Temps de cuisson</th>
+                            <th>Difficulté</th>
+                            <th>Portions</th>
+                            <th>Évaluation</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipe in recipes %}
+                            <tr>
+                                <td>{{ recipe.name }}</td>
+                                <td>{{ recipe.picture }}</td>
+                                <td>{{ recipe.description }}</td>
+                                <td>{{ recipe.instructions }}</td>
+                                <td>{{ recipe.preparationTime }}</td>
+                                <td>{{ recipe.cookingTime }}</td>
+                                <td>{{ recipe.difficulty }}</td>
+                                <td>{{ recipe.servings }}</td>
+                                <td>{{ recipe.rating }}</td>
+                                <td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
+                                <td>
+                                    <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                    <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
+                                    </form>
+                                    <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+                                    <a href="{{ path('admin_recipes_reviews', {'id': recipe.id}) }}" class="btn btn-sm btn-info">Voir les commentaires</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-	<!-- Bouton pour remonter en haut de la page -->
-	<button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" style="display: none;">Haut</button>
+    <!-- Bouton pour remonter en haut de la page -->
+    <button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" style="display: none;">Haut</button>
 
-	<script>
-		// Fonction pour confirmer la suppression d'une recette
-function confirmDelete(recipeId) {
-if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
-document.getElementById('delete-form-' + recipeId).submit();
-}
-}
+    <script>
+        // Fonction pour confirmer la suppression d'une recette
+        function confirmDelete(recipeId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+                document.getElementById('delete-form-' + recipeId).submit();
+            }
+        }
 
-// Afficher ou masquer le bouton de retour en haut de la page selon le défilement
-window.onscroll = function () {
-scrollFunction()
-};
+        // Afficher ou masquer le bouton de retour en haut de la page selon le défilement
+        window.onscroll = function () {
+            scrollFunction()
+        };
 
-function scrollFunction() {
-var scrollTopBtn = document.getElementById("scrollTopBtn");
-if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-scrollTopBtn.style.display = "block";
-} else {
-scrollTopBtn.style.display = "none";
-}
-}
+        function scrollFunction() {
+            var scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        }
 
-// Fonction pour remonter en haut de la page lorsque le bouton est cliqué
-function topFunction() {
-document.body.scrollTop = 0;
-document.documentElement.scrollTop = 0;
-}
-	</script>
+        // Fonction pour remonter en haut de la page lorsque le bouton est cliqué
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 {% endblock %}
