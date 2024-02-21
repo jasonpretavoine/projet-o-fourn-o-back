@@ -2,10 +2,25 @@
 
 {% block title %}Modifier l'ustensile'{% endblock %}
 
-{% block body %}
-    <h1>Modifier l'ustensile</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Enregistrer</button>
-    {{ form_end(form) }}
+{% block content %}
+    <div class="container-fluid">
+        <header class="mb-4">
+            <div class="container py-3">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h1>Modifier l'ustensile</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="section">
+                <form action="{{ path('admin_categories_index') }}" method="post"> 
+                    {{ form_widget(form) }} 
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
