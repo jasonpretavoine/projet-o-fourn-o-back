@@ -5,11 +5,12 @@ namespace App\Controller\Back;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecipeController extends AbstractController
 {
@@ -86,5 +87,17 @@ class RecipeController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('admin_recipes');
+    }
+
+    #[Route('/admin/recipes/{id}/reviews', name: 'admin_recipes_reviews', methods: ['GET'])]
+    public function showReviews(Recipe $recipe, ReviewRepository $reviewRepository): Response
+    {
+        // Récupérer les commentaires de la recette spécifique
+        $reviews = $reviewRepository->findBy(['recipe' => $recipe]);
+
+        return $this->render('admin/recipe/reviews.html.twig', [
+            'recipe' => $recipe,
+            'reviews' => $reviews,
+        ]);
     }
 }

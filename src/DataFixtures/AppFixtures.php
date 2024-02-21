@@ -822,6 +822,7 @@ class AppFixtures extends Fixture
             $review->setRating($faker->numberBetween(1, 5));
             $review->setUser($faker->randomElement($users)); // Add this line
             $review->setRecipe($faker->randomElement($recipes));
+            $review->setStatus($faker->boolean);
 
             $manager->persist($review);
         }

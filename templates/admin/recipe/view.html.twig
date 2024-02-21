@@ -3,63 +3,80 @@
 {% block title %}Détails de la recette{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="header">
-			<div class="logo text-center">
-				<img src="{{ asset('images/logo.svg') }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
-			</div>
-		</div>
+    <div class="container-fluid">
+        <header class="mb-4">
+            <div class="container py-3">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h1>Détails de la recette</h1>
+                    </div>
+                 
+                </div>
+            </div>
+        </header>
 
-        <div class="main">
+        <div class="container">
             <div class="section">
-                <h1>Détails de la recette</h1>
-
-                <dl class="row">
-                    <dt class="col-sm-3">Nom :</dt>
-                    <dd class="col-sm-9">{{ recipe.name }}</dd>
-
-                    <dt class="col-sm-3">Description :</dt>
-                    <dd class="col-sm-9">{{ recipe.description }}</dd>
-
-                    <dt class="col-sm-3">Instructions :</dt>
-                    <dd class="col-sm-9">{{ recipe.instructions }}</dd>
-
-                    <dt class="col-sm-3">Temps de préparation :</dt>
-                    <dd class="col-sm-9">{{ recipe.preparationTime }}</dd>
-
-                    <dt class="col-sm-3">Temps de cuisson :</dt>
-                    <dd class="col-sm-9">{{ recipe.cookingTime }}</dd>
-
-                    <dt class="col-sm-3">Difficulté :</dt>
-                    <dd class="col-sm-9">{{ recipe.difficulty }}</dd>
-
-                    <dt class="col-sm-3">Nombres de personnes :</dt>
-                    <dd class="col-sm-9">{{ recipe.servings }}</dd>
-
-                    <dt class="col-sm-3">Note :</dt>
-                    <dd class="col-sm-9">{{ recipe.rating }}</dd>
-
-                    <dt class="col-sm-3">Statut :</dt>
-                    <dd class="col-sm-9">{{ recipe.status ? 'Actif' : 'Inactif' }}</dd>
-
-                    <dt class="col-sm-3">Ingrédients :</dt>
-                    <dd class="col-sm-9">
-                        <ul>
-                            {% for ingredient in recipe.ingredients %}
-                                <li>{{ ingredient.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </dd>
-
-                    <dt class="col-sm-3">Catégories :</dt>
-                    <dd class="col-sm-9">
-                        <ul>
-                            {% for category in recipe.categories %}
-                                <li>{{ category.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </dd>
-                </dl>
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Nom :</th>
+                            <td>{{ recipe.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description :</th>
+                            <td>{{ recipe.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Instructions :</th>
+                            <td>{{ recipe.instructions }}</td>
+                        </tr>
+                        <tr>
+                            <th>Temps de préparation :</th>
+                            <td>{{ recipe.preparationTime }} minutes</td>
+                        </tr>
+                        <tr>
+                            <th>Temps de cuisson :</th>
+                            <td>{{ recipe.cookingTime }} minutes</td>
+                        </tr>
+                        <tr>
+                            <th>Difficulté :</th>
+                            <td>{{ recipe.difficulty }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombres de personnes :</th>
+                            <td>{{ recipe.servings }}</td>
+                        </tr>
+                        <tr>
+                            <th>Note :</th>
+                            <td>{{ recipe.rating }}</td>
+                        </tr>
+                        <tr>
+                            <th>Statut :</th>
+                            <td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Ingrédients :</th>
+                            <td>
+                                <ul>
+                                    {% for ingredient in recipe.ingredients %}
+                                        <li>{{ ingredient.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Catégories :</th>
+                            <td>
+                                <ul>
+                                    {% for category in recipe.categories %}
+                                        <li>{{ category.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-primary">Modifier</a>
                 <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
@@ -67,16 +84,37 @@
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
                 </form>
-                <a href="{{ path('app_admin') }}" class="btn btn-secondary">Retour à la liste</a>
+                <a href="{{ path('admin_recipes') }}" class="btn btn-secondary">Retour à la liste</a>
             </div>
         </div>
-    </div>
+
+     <button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" class="btn btn-primary btn-sm" style="position: fixed; bottom: 20px; right: 20px; display: none;">Haut</button>
 
     <script>
         function confirmDelete(recipeId) {
             if (confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
                 document.getElementById('delete-form-' + recipeId).submit();
             }
+        }
+
+        // Afficher ou masquer le bouton de retour en haut de la page selon le défilement
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            var scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        }
+
+        // Fonction pour remonter en haut de la page lorsque le bouton est cliqué
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         }
     </script>
 {% endblock %}
