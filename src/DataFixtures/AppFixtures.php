@@ -248,18 +248,197 @@ class AppFixtures extends Fixture
             $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
             $manager->persist($ingredient);
             $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Bouillon de volaille");
+            $ingredient->setPicture("/images/ingredients/bouillon.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Crème liquide");
+            $ingredient->setPicture("/images/ingredients/creme-liquide.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Eau");
+            $ingredient->setPicture("/images/ingredients/eau.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Carotte");
+            $ingredient->setPicture("/images/ingredients/carotte.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Oignon");
+            $ingredient->setPicture("/images/ingredients/oignon.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Poireau");
+            $ingredient->setPicture("/images/ingredients/poireau.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Sucre vanillé");
+            $ingredient->setPicture("/images/ingredients/sucre-vanille.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Pruneau");
+            $ingredient->setPicture("/images/ingredients/pruneau.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Maïs");
+            $ingredient->setPicture("/images/ingredients/mais.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Wrap");
+            $ingredient->setPicture("/images/ingredients/wrap.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Avocat");
+            $ingredient->setPicture("/images/ingredients/avocat.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Beurre");
+            $ingredient->setPicture("/images/ingredients/beurre.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Poudre d'amande");
+            $ingredient->setPicture("/images/ingredients/poudre-amande.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Pâte feuilletée");
+            $ingredient->setPicture("/images/ingredients/pate-feuilletee.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
         
         $manager->flush();
 
         // Charger les ustensiles
-        for ($i = 0; $i < 15; $i++) {
             $ustensil = new Ustensil();
-            $ustensil->setName($faker->unique()->word);
-            $ustensil->setPicture($faker->imageUrl(800, 600));
-
+            $ustensil->setName("Pince à salade");
+            $ustensil->setPicture("/images/ustensils/pince.jpg");
             $manager->persist($ustensil);
             $ustensils[] = $ustensil;
-        }
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Rape à fromage");
+            $ustensil->setPicture("/images/ustensils/rape.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Fouet");
+            $ustensil->setPicture("/images/ustensils/fouet.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Cuillère à soupe");
+            $ustensil->setPicture("/images/ustensils/cuillere.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Plat à gratin");
+            $ustensil->setPicture("/images/ustensils/plat-gratin.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Plat à rotir");
+            $ustensil->setPicture("/images/ustensils/plat-rotir.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Poche à douille");
+            $ustensil->setPicture("/images/ustensils/poche-douille.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Passoire chinois");
+            $ustensil->setPicture("/images/ustensils/chinois.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Poêle");
+            $ustensil->setPicture("/images/ustensils/poele.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Passoire");
+            $ustensil->setPicture("/images/ustensils/passoire.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Casserole");
+            $ustensil->setPicture("/images/ustensils/casserole.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Spatule");
+            $ustensil->setPicture("/images/ustensils/spatule.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Plat à tarte");
+            $ustensil->setPicture("/images/ustensils/plat.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Couteau de cuisine");
+            $ustensil->setPicture("/images/ustensils/couteau.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
+
+            $ustensil = new Ustensil();
+            $ustensil->setName("Louche");
+            $ustensil->setPicture("/images/ustensils/louche.jpg");
+            $manager->persist($ustensil);
+            $ustensils[] = $ustensil;
 
         $manager->flush();
 
@@ -318,13 +497,13 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
@@ -355,13 +534,13 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
@@ -392,13 +571,13 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
@@ -466,13 +645,13 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
@@ -487,10 +666,10 @@ class AppFixtures extends Fixture
             $recipes[] = $recipe;
 
             $recipe = new Recipe();
-            $recipe->setName("Brocolis sautés à l'ail et au gingembre");
+            $recipe->setName("Soupe veloutée aux légumes");
             $recipe->setDescription($faker->paragraph(2));
-            $recipe->setPicture("/images/recipes/brocolis.jpg");
-            $recipe->setInstructions("Laver et égoutter les brocolis, les couper en petits bouquets. Peler et hacher finement l'ail, peler et râper le gingembre. Dans une poêle, faire chauffer l'huile à feu vif, ajouter l'ail et le gingembre et faire revenir pendant 1 minute. Ajouter les brocolis et faire sauter pendant environ 5 minutes jusqu'à ce qu'ils soient tendres mais encore croquants. Incorporer la sauce soja et le sucre, faire sauter pendant 1 minute supplémentaire. Servir immédiatement.");
+            $recipe->setPicture("/images/recipes/soupe.jpg");
+            $recipe->setInstructions("Éplucher les carottes et les couper en rondelles pas trop grosses afin qu'elles cuisent plus vite. Éplucher le poireau en morceaux et couper l'oignon, puis écraser la gousse d'ail. Verser l’eau dans la marmite et y plonger tous les légumes, les faire revenir 5 min en ajoutant 3 cuillères à soupe d'huile d'olive. Verser le bouillon de volaille sur les légumes. Cuire pendant au moins 1h15. Vérifier qu'il ne manque pas d'eau et ajouter du temps de cuisson si les carottes ne sont pas assez cuites pour être mixées. Une fois tous les légumes cuits, mixer tout en ajouter la crème liquide. Assaisonner à votre goût.");
             $recipe->setPreparationTime($faker->numberBetween(10, 60));
             $recipe->setCookingTime($faker->numberBetween(20, 120));
             $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
@@ -503,13 +682,13 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
@@ -523,10 +702,121 @@ class AppFixtures extends Fixture
             $manager->persist($recipe);
             $recipes[] = $recipe;
 
+            $recipe = new Recipe();
+            $recipe->setName("Flan aux pruneaux moelleux");
+            $recipe->setDescription($faker->paragraph(2));
+            $recipe->setPicture("/images/recipes/flan.jpg");
+            $recipe->setInstructions("Dans un saladier, mélanger la farine, le sucre en poudre et le sachet de sucre vanillé, y ajouter les œufs et battre la préparation. Faire tiédir le lait dans une casserole, mettre ensuite les pruneaux dénoyautés dedans. Ajoutez les 2 préparations dans un seul saladier et remuer doucement jusqu'à obtenir une pâte homogène, verser un plat et enfourner pendant 40 min à 180°C (thermostat 6). Servir tiède en saupoudrant de sucre glace.");
+            $recipe->setPreparationTime($faker->numberBetween(10, 60));
+            $recipe->setCookingTime($faker->numberBetween(20, 120));
+            $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
+            $recipe->setServings($faker->numberBetween(1, 10));
+            $recipe->setRating($faker->numberBetween(1, 5));
+            $recipe->setStatus($faker->boolean);
+
+            // Associer la recette à un utilisateur existant
+            $randomUser = $faker->randomElement($users);
+            $recipe->setUser($randomUser);
+
+            // Associer des ingrédients à la recette
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
+            foreach ($selectedIngredients as $selectedIngredient) {
+                $recipe->addIngredient($selectedIngredient);
+            }
+
+            // Associer des ustensiles à la recette
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
+            foreach ($selectedUstensils as $selectedUstensil) {
+                $recipe->addUstensil($selectedUstensil);
+            }
+
+            // Associer des categories à la recette
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 4));
+            foreach ($selectedCategories as $selectedCategory) {
+                $recipe->addCategory($selectedCategory);
+            }
+
+            $manager->persist($recipe);
+            $recipes[] = $recipe;
+
+            $recipe = new Recipe();
+            $recipe->setName("Wrap de tomate et avocat");
+            $recipe->setDescription($faker->paragraph(2));
+            $recipe->setPicture("/images/recipes/wrap.jpg");
+            $recipe->setInstructions("Découper la tomate et un demi avocat en morceaux. Laver et égoutter le mais. Dans une assiette déposer 2 wraps, puis les morceaux de tomates, d'avocats et le maïs. Assaisonner à votre gout.");
+            $recipe->setPreparationTime($faker->numberBetween(10, 60));
+            $recipe->setCookingTime($faker->numberBetween(20, 120));
+            $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
+            $recipe->setServings($faker->numberBetween(1, 10));
+            $recipe->setRating($faker->numberBetween(1, 5));
+            $recipe->setStatus($faker->boolean);
+
+            // Associer la recette à un utilisateur existant
+            $randomUser = $faker->randomElement($users);
+            $recipe->setUser($randomUser);
+
+            // Associer des ingrédients à la recette
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
+            foreach ($selectedIngredients as $selectedIngredient) {
+                $recipe->addIngredient($selectedIngredient);
+            }
+
+            // Associer des ustensiles à la recette
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
+            foreach ($selectedUstensils as $selectedUstensil) {
+                $recipe->addUstensil($selectedUstensil);
+            }
+
+            // Associer des categories à la recette
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 4));
+            foreach ($selectedCategories as $selectedCategory) {
+                $recipe->addCategory($selectedCategory);
+            }
+
+            $manager->persist($recipe);
+            $recipes[] = $recipe;
+
+            $recipe = new Recipe();
+            $recipe->setName("Galette frangipane");
+            $recipe->setDescription($faker->paragraph(2));
+            $recipe->setPicture("/images/recipes/frangipane.jpg");
+            $recipe->setInstructions("Pré-chauffer le four à 200°C. Sur une plaque allant au four, déposer une feuille de papier sulfurisé dessus. Placer la pâte feuilletée et piquer la avec une fourchette. Dans un saladier, ajouter la poudre d'amande, le sucre, les 2 oeufs et le beurre mou, mélanger le tout. Une fois l'obtention d'une pâte, l'étalé sur la pâte feuilletée, n'oublier pas de placer la fève à l'intérieur. Recouvrir le tout avec la 2ème pâte feuilletée en appuyant bien sur les bords pour ne pas qu'elle se décolle. Faire des dessins sur le dessus de la pâte et badigeonner avec le jaune d'oeuf à l'aide d'un pinceau. Enfourner pendant une vingtaine de minutes en vérifiant régulièrement la cuisson.");
+            $recipe->setPreparationTime($faker->numberBetween(10, 60));
+            $recipe->setCookingTime($faker->numberBetween(20, 120));
+            $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
+            $recipe->setServings($faker->numberBetween(1, 10));
+            $recipe->setRating($faker->numberBetween(1, 5));
+            $recipe->setStatus($faker->boolean);
+
+            // Associer la recette à un utilisateur existant
+            $randomUser = $faker->randomElement($users);
+            $recipe->setUser($randomUser);
+
+            // Associer des ingrédients à la recette
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
+            foreach ($selectedIngredients as $selectedIngredient) {
+                $recipe->addIngredient($selectedIngredient);
+            }
+
+            // Associer des ustensiles à la recette
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
+            foreach ($selectedUstensils as $selectedUstensil) {
+                $recipe->addUstensil($selectedUstensil);
+            }
+
+            // Associer des categories à la recette
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 4));
+            foreach ($selectedCategories as $selectedCategory) {
+                $recipe->addCategory($selectedCategory);
+            }
+
+            $manager->persist($recipe);
+            $recipes[] = $recipe;
+
         $manager->flush();
 
         // Charger les avis
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $review = new Review();
             $review->setText($faker->paragraph);
             $review->setRating($faker->numberBetween(1, 5));
