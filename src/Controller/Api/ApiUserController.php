@@ -91,15 +91,12 @@ class ApiUserController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        // Vérifier les données d'identification fournies dans la demande
         $user = $userRepository->findOneBy(['email' => $data['email']]);
 
-        // Vérifier si l'utilisateur existe et si le mot de passe est correct
         if (!$user || !$passwordHasher->isPasswordValid($user, $data['password'])) {
             return new JsonResponse(['message' => 'Identifiants incorrects'], 401);
         }
 
-        // Si les identifiants sont corrects, générer un token
         $token = $this->JWTManager->create($user);
 
         return new JsonResponse([
