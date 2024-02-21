@@ -267,19 +267,19 @@ class AppFixtures extends Fixture
             $recipe->setUser($randomUser);
 
             // Associer des ingrédients à la recette
-            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
             foreach ($selectedIngredients as $selectedIngredient) {
                 $recipe->addIngredient($selectedIngredient);
             }
 
             // Associer des ustensiles à la recette
-            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
             foreach ($selectedUstensils as $selectedUstensil) {
                 $recipe->addUstensil($selectedUstensil);
             }
 
             // Associer des categories à la recette
-            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 3));
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 4));
             foreach ($selectedCategories as $selectedCategory) {
                 $recipe->addCategory($selectedCategory);
             }
