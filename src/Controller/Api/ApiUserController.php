@@ -101,6 +101,7 @@ class ApiUserController extends AbstractController
 
         return new JsonResponse([
             'token' => $token,
+            'id' => $user->getId(),
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'pseudo' => $user->getPseudo(),
