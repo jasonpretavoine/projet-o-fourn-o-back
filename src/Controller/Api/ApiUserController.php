@@ -86,6 +86,7 @@ class ApiUserController extends AbstractController
         return $this->json(['message' => 'Utilisateur créé avec succès'], 201);
     }
 
+    #[Route('/api/user/login', name: 'api_user_login', methods: ['POST'])]
     public function loginCheck(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
