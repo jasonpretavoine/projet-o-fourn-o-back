@@ -7,4 +7,4 @@ controllers:
 # LexikJWTAuthenticationBundle
 api_login_check:
     path: /api/login_check
-    controller: App\Controller\Api\ApiUserController::getCollection
+    controller: App\Controller\Api\ApiUserController::loginCheck

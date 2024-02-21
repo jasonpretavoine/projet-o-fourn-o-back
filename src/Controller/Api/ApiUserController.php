@@ -11,9 +11,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class ApiUserController extends AbstractController
 {
+
+    private $JWTManager;
+
+    public function __construct(JWTTokenManagerInterface $JWTManager)
+    {
+        $this->JWTManager = $JWTManager;
+    }
+
     /**
      * Renvoi de la liste de tous les utilisateurs
      *
@@ -59,7 +68,7 @@ class ApiUserController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email']) ) {
+        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
 
@@ -70,10 +79,33 @@ class ApiUserController extends AbstractController
         $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
         $user->setEmail($data['email']);
         $user->setRoles(['ROLE_USER']);
-        
+
         $entityManager->persist($user);
         $entityManager->flush();
 
         return $this->json(['message' => 'Utilisateur créé avec succès'], 201);
+    }
+
+    public function loginCheck(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // Vérifier les données d'identification fournies dans la demande
+        $user = $userRepository->findOneBy(['username' => $data['username']]);
+
+        // Vérifier si l'utilisateur existe et si le mot de passe est correct
+        if (!$user || !$passwordHasher->isPasswordValid($user, $data['password'])) {
+            return new JsonResponse(['message' => 'Identifiants incorrects'], 401);
+        }
+
+        // Si les identifiants sont corrects, générer un token
+        $token = $this->JWTManager->create($user);
+
+        return new JsonResponse([
+            'token' => $token,
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'pseudo' => $user->getPseudo(),
+        ]);
     }
 }
