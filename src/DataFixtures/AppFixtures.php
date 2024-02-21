@@ -234,6 +234,20 @@ class AppFixtures extends Fixture
             $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
             $manager->persist($ingredient);
             $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Courgette");
+            $ingredient->setPicture("/images/ingredients/courgette.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
+
+            $ingredient = new Ingredient();
+            $ingredient->setName("Lardon");
+            $ingredient->setPicture("/images/ingredients/lardon.jpg");
+            $ingredient->setMetricUnit($faker->randomElement(['g', 'kg', 'ml', 'cl', 'l']));
+            $manager->persist($ingredient);
+            $ingredients[] = $ingredient;
         
         $manager->flush();
 
@@ -403,6 +417,80 @@ class AppFixtures extends Fixture
             $recipe->setDescription($faker->paragraph(2));
             $recipe->setPicture("/images/recipes/saumon.jpg");
             $recipe->setInstructions("Préchauffer le grill du four. Mélanger la moutarde et l'aneth dans un bol. Badigeonner les filets de saumon avec le mélange. Enfourner pendant 10 minutes. Pendant ce temps, laver et couper les asperges. Les faire cuire dans une poêle avec un peu d'huile d'olive pendant 5 minutes. Servir le saumon grillé avec les asperges.");
+            $recipe->setPreparationTime($faker->numberBetween(10, 60));
+            $recipe->setCookingTime($faker->numberBetween(20, 120));
+            $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
+            $recipe->setServings($faker->numberBetween(1, 10));
+            $recipe->setRating($faker->numberBetween(1, 5));
+            $recipe->setStatus($faker->boolean);
+
+             // Associer la recette à un utilisateur existant
+            $randomUser = $faker->randomElement($users);
+            $recipe->setUser($randomUser);
+
+            // Associer des ingrédients à la recette
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(3, 5));
+            foreach ($selectedIngredients as $selectedIngredient) {
+                $recipe->addIngredient($selectedIngredient);
+            }
+
+            // Associer des ustensiles à la recette
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(2, 5));
+            foreach ($selectedUstensils as $selectedUstensil) {
+                $recipe->addUstensil($selectedUstensil);
+            }
+
+            // Associer des categories à la recette
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 4));
+            foreach ($selectedCategories as $selectedCategory) {
+                $recipe->addCategory($selectedCategory);
+            }
+
+            $manager->persist($recipe);
+            $recipes[] = $recipe;
+
+            $recipe = new Recipe();
+            $recipe->setName("Tortilla à la courgette");
+            $recipe->setDescription($faker->paragraph(2));
+            $recipe->setPicture("/images/recipes/tortilla.jpg");
+            $recipe->setInstructions("Dans une poêle, ajouter 2 filets d'huile d'olive, faire cuire les lardons. Éplucher les courgettes et les couper en petits morceaux, puis les faire cuire avec un filet d'huile d'olive, saler et poivrer. Dans une récipient, battre les 2 oeufs et saler. Ajouter le gruyère, les lardons, les courgettes et la farine, mélanger le tout. Verser la préparation dans une poêle et faire cuire environ 10-15min, déguster chaud !  ");
+            $recipe->setPreparationTime($faker->numberBetween(10, 60));
+            $recipe->setCookingTime($faker->numberBetween(20, 120));
+            $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
+            $recipe->setServings($faker->numberBetween(1, 10));
+            $recipe->setRating($faker->numberBetween(1, 5));
+            $recipe->setStatus($faker->boolean);
+
+            // Associer la recette à un utilisateur existant
+            $randomUser = $faker->randomElement($users);
+            $recipe->setUser($randomUser);
+
+            // Associer des ingrédients à la recette
+            $selectedIngredients = $faker->randomElements($ingredients, $faker->numberBetween(1, 5));
+            foreach ($selectedIngredients as $selectedIngredient) {
+                $recipe->addIngredient($selectedIngredient);
+            }
+
+            // Associer des ustensiles à la recette
+            $selectedUstensils = $faker->randomElements($ustensils, $faker->numberBetween(1, 5));
+            foreach ($selectedUstensils as $selectedUstensil) {
+                $recipe->addUstensil($selectedUstensil);
+            }
+
+            // Associer des categories à la recette
+            $selectedCategories = $faker->randomElements($categories, $faker->numberBetween(1, 3));
+            foreach ($selectedCategories as $selectedCategory) {
+                $recipe->addCategory($selectedCategory);
+            }
+
+            $manager->persist($recipe);
+            $recipes[] = $recipe;
+
+            $recipe = new Recipe();
+            $recipe->setName("Brocolis sautés à l'ail et au gingembre");
+            $recipe->setDescription($faker->paragraph(2));
+            $recipe->setPicture("/images/recipes/brocolis.jpg");
+            $recipe->setInstructions("Laver et égoutter les brocolis, les couper en petits bouquets. Peler et hacher finement l'ail, peler et râper le gingembre. Dans une poêle, faire chauffer l'huile à feu vif, ajouter l'ail et le gingembre et faire revenir pendant 1 minute. Ajouter les brocolis et faire sauter pendant environ 5 minutes jusqu'à ce qu'ils soient tendres mais encore croquants. Incorporer la sauce soja et le sucre, faire sauter pendant 1 minute supplémentaire. Servir immédiatement.");
             $recipe->setPreparationTime($faker->numberBetween(10, 60));
             $recipe->setCookingTime($faker->numberBetween(20, 120));
             $recipe->setDifficulty($faker->randomElement(['Facile', 'Moyen', 'Difficile']));
