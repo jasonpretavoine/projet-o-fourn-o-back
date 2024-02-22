@@ -1,0 +1,43 @@
+.col-blue {
+    background-color: #9cb7c9;
+}
+
+.col-blue:hover {
+    background-color: white;
+    color: #9cb7c9 !important;
+    border: 1px solid #9cb7c9;
+}
+
+.col-orange {
+    background-color: #eca457;
+}
+
+.col-orange:hover {
+    background-color: white;
+    color: #eca457 !important;
+    border: 1px solid #eca457;
+}
+
+.col-brown {
+    background-color: #350503;
+}
+
+.col-brown:hover {
+    background-color: white;
+    color: #350503 !important;
+    border: 1px solid #350503;
+}
+
+.col-yellow {
+    background-color: #fc0;
+}
+
+.col-yellow:hover {
+    background-color: white;
+    color: #fc0 !important;
+    border: 1px solid #fc0;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}

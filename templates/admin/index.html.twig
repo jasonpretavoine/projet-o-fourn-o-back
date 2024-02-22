@@ -46,22 +46,18 @@
                                 <td>{{ recipe.rating }}</td>
                                 <td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
                                 <td>
-                                    <span class="d-inline">
-                                        <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm btn-primary me-1">Modifier</a>
-                                    </span>
-                                    <span class="d-inline">
+                                    <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm col-yellow text-white bi bi-eye"></a>
+                                    <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm col-blue text-white fw-bold">Editer</a>
+                                    
                                         <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-                                            <button type="button" class="btn btn-sm btn-danger me-1" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
+                                            <button type="button" class="btn btn-sm col-orange text-white me-1 bi bi-trash" onclick="confirmDelete({{ recipe.id }})"></button>
                                         </form>
-                                    </span>
-                                    <span class="d-inline">
-                                        <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm btn-secondary me-1">Voir</a>
-                                    </span>
-                                    <span class="d-inline">
-                                        <a href="{{ path('admin_recipes_reviews', {'id': recipe.id}) }}" class="btn btn-sm btn-info me-1">Voir les commentaires</a>
-                                    </span>
+                                            
+                                        <a href="{{ path('admin_recipes_reviews', {'id': recipe.id}) }}" class="btn btn-sm col-brown text-white fw-bold margin-top-10 me-1">Commentaires</a>
+                                    
+                                    
                                 </td>
                             </tr>
                         {% endfor %}
@@ -71,7 +67,7 @@
         </div>
 
      <!-- Bouton pour remonter en haut de la page -->
-    <button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" class="btn btn-primary btn-sm" style="position: fixed; bottom: 20px; right: 20px; display: none;">Haut</button>
+    <button onclick="topFunction()" id="scrollTopBtn" title="Retour en haut de la page" class="btn col-blue text-white fw-bold btn-sm" style="position: fixed; bottom: 20px; right: 20px; display: none;">Haut</button>
 
     <script>
         // Fonction pour confirmer la suppression d'une recette
