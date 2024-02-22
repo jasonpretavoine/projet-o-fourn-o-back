@@ -18,9 +18,11 @@
 		<div class="container">
 			<header class="py-4">
 				<div class="row justify-content-between align-items-center">
-					<div class="col-auto">
-						<img src="{{ asset('images/logo.svg') }}" alt="Logo" style="max-width: 100px;">
-					</div>
+					{% if app.user %}
+						<div class="col-auto">
+							<img src="{{ asset('images/logo.svg') }}" alt="Logo" style="max-width: 100px;">
+						</div>
+					{% endif %}
 					<div class="col-auto">
 
 						{% if app.user %}
