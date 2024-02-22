@@ -16,13 +16,13 @@ class AdminController extends AbstractController
         $this->recipeRepository = $recipeRepository;
     }
 
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
-        // Récupérer toutes les recettes depuis le repository
+      
         $recipes = $this->recipeRepository->findAll();
 
-        // Passer les recettes à la vue
+       
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
             'recipes' => $recipes,
