@@ -71,6 +71,7 @@ class RecipeType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false,
                 'label' => 'Catégories',
                 'label_attr'    => [
                     'class' => 'checkbox-inline checkbox-switch',
