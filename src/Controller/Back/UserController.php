@@ -5,10 +5,12 @@ namespace App\Controller\Back;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -84,10 +86,25 @@ class UserController extends AbstractController
 
     // Supprime un utilisateur
     #[Route('/admin/users/{id}/delete', name: 'admin_users_delete', methods: ['POST'])]
-    public function delete(User $user): Response
+    public function delete(User $user, EntityManagerInterface $entityManager, RecipeRepository $recipeRepository): RedirectResponse
     {
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
+        $adminUser = $entityManager->getRepository(User::class)->findOneBy(['email' => 'admin@admin.com']);
+
+        if (!$adminUser) {
+           
+            throw $this->createNotFoundException('Administrateur non trouvé.');
+        }
+
+        // Récupérer les recettes de l'utilisateur en cours de suppression
+        $recipes = $recipeRepository->findBy(['user' => $user]);
+
+        foreach ($recipes as $recipe) {
+            // Modifier l'utilisateur de chaque recette pour le définir sur l'utilisateur admin
+            $recipe->setUser($adminUser);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('admin_users');
     }
