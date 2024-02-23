@@ -4,11 +4,7 @@
 
 {% block content %}
     <div class="container">
-        <div class="header">
-			<div class="logo text-center">
-				<img src="{{ asset('images/logo.svg') }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
-			</div>
-		</div>
+     
 
         <div class="main">
             <div class="section">
@@ -16,8 +12,8 @@
 
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button type="submit" class="btn btn-primary">Enregistrer</button> <!-- Added btn-primary class -->
-                <a href="{{ path('admin_users') }}" class="btn btn-danger">Annuler</a> <!-- Added btn-danger class -->
+                <button type="submit" class="btn col-blue text-white fw-bold">Enregistrer</button> <!-- Added btn-primary class -->
+                <a href="{{ path('admin_users') }}" class="btn col-orange text-white fw-bold">Annuler</a> <!-- Added btn-danger class -->
                 {{ form_end(form) }}
             </div>
         </div>

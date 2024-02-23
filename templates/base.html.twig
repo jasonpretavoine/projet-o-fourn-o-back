@@ -49,6 +49,8 @@
 					<div class="collapse navbar-collapse" id="navbarNav">
 						
 							<a href="{{ path('admin_recipes') }}" class="btn col-orange text-white bi bi-house-door me-4"></a>
+							<a href="http://localhost:5173/" target="_blank" class="btn col-orange text-white me-4 bi bi-globe"></a>
+
 						
 						{% if app.user and 'ROLE_ADMIN' in app.user.roles %}
 							<ul class="navbar-nav me-auto">
@@ -68,15 +70,15 @@
 						{% endif %}
 						<div class="ms-auto">
 							{% if app.request.attributes.get('_route') == 'admin_recipes' %}
-								<a href="{{ path('admin_recipes_new') }}" class="btn btn-success fw-bold justify-content-end">Ajouter une recette</a>
+								<a href="{{ path('admin_recipes_new') }}" class="btn col-green text-white fw-bold justify-content-end">Ajouter une recette</a>
 							{% elseif app.request.attributes.get('_route') == 'admin_ingredients_index' %}
-								<a href="{{ path('admin_ingredients_new') }}" class="btn btn-success me-3">Ajouter un ingrédient</a>
+								<a href="{{ path('admin_ingredients_new') }}" class="btn col-green text-white fw-bold justify-content-end">Ajouter un ingrédient</a>
 							{% elseif app.request.attributes.get('_route') == 'admin_ustensils_index' %}
-								<a href="{{ path('admin_ustensils_new') }}" class="btn btn-success me-3">Ajouter un ustensile</a>
+								<a href="{{ path('admin_ustensils_new') }}" class="btn col-green text-white fw-bold justify-content-end">Ajouter un ustensile</a>
 							{% elseif app.request.attributes.get('_route') == 'admin_categories_index' %}
-								<a href="{{ path('admin_categories_new') }}" class="btn btn-success me-3">Ajouter une catégorie</a>
+								<a href="{{ path('admin_categories_new') }}" class="btn col-green text-white fw-bold justify-content-end">Ajouter une catégorie</a>
 							{% elseif app.request.attributes.get('_route') == 'admin_users' %}
-								<a href="{{ path('admin_users_new') }}" class="btn btn-success me-3">Ajouter un utilisateur</a>
+								<a href="{{ path('admin_users_new') }}" class="btn col-green text-white fw-bold justify-content-end">Ajouter un utilisateur</a>
 							{% endif %}
 
 						</div>

@@ -1,28 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une nouvelle catégorie{% endblock %}
+{% block title %}Ajouter une nouvelle catégorie
+{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <header class="mb-4">
-            <div class="container py-3">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <h1>Ajouter une nouvelle catégorie</h1>
-                    </div>
-                </div>
-            </div>
-        </header>
+	<div class="container-fluid">
+		<header class="mb-4">
+			<div class="container py-3">
+				<div class="row align-items-center">
+					<div class="col-6">
+						<h1>Ajouter une nouvelle catégorie</h1>
+					</div>
+				</div>
+			</div>
+		</header>
 
-        <div class="container">
-            <div class="section">
-                <form action="{{ path('admin_categories_index') }}" method="post"> 
-                    {{ form_widget(form) }} 
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <a href="{{ path('admin_categories_index') }}" class="btn btn-danger">Annuler</a>
-                </form>
-            </div>
-        </div>
+		<div class="container">
+			<div class="section">
+				<form action="{{ path('admin_categories_index') }}" method="post">
+					{{ form_widget(form) }}
+					<button type="submit" class="btn col-blue text-white fw-bold">Enregistrer</button>
+					<a href="{{ path('admin_categories_index') }}" class="btn col-orange text-white fw-bold">Annuler</a>
+				</form>
+			</div>
+		</div>
 
-    </div>
+	</div>
 {% endblock %}

@@ -48,6 +48,16 @@
     border: 1px solid #e4022c;
 }
 
+.col-green {
+    background-color: #048756;
+}
+
+.col-green:hover {
+    background-color: white;
+    color: #048756 !important;
+    border: 1px solid #048756;
+}
+
 .margin-right-10 {
     margin-right: 10px;
 }
@@ -58,4 +68,8 @@
 
 .widht-column-10 {
     width: 10px;
+}
+
+.width-20 {
+    width: 20px;
 }
