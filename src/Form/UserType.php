@@ -17,10 +17,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('csrf_token', HiddenType::class, [
-                'mapped' => false,
-                'data' => $options['csrf_token'], 
-            ])
+            
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur'
             ])
@@ -49,7 +46,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'csrf_token' => '',
+      
         ]);
     }
 }

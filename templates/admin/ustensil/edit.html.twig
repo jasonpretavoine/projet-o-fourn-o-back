@@ -16,10 +16,17 @@
 
         <div class="container">
             <div class="section">
-                <form action="{{ path('admin_categories_index') }}" method="post"> 
-                    {{ form_widget(form) }} 
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                </form>
+                {{ form_start(form, {
+                    action: path('admin_ustensils_edit', {'id': ustensil.id}),
+                    method: 'post'
+                }) }}
+                      {{ form_row(form.name) }}
+                    {{ form_row(form.picture) }}
+                   
+                    
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                    <a href="{{ path('admin_ustensils_index') }}" class="btn btn-danger">Annuler</a>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
