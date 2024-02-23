@@ -25,12 +25,12 @@
 							<tr>
 								<td>{{ category.name }}</td>
 								<td class="d-flex justify-content-end">
-									<a href="{{ path('admin_categories_view', {'id': category.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+									<a href="{{ path('admin_categories_view', {'id': category.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
 									<a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn btn-sm col-blue text-white fw-bold me-2" style="margin: 0 8px">Editer</a>
 									<form action="{{ path('admin_categories_delete', {'id': category.id}) }}" method="post" style="display: inline;">
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
-										<button type="submit" class="btn btn-sm col-orange text-white me-2 bi bi-trash" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')"></button>
+										<button type="submit" class="btn btn-sm col-red text-white me-2 bi bi-trash" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')"></button>
 									</form>
 								</td>
 							</tr>

@@ -46,13 +46,13 @@
                                 <td>{{ recipe.rating }}</td>
                                 <td>{{ recipe.status ? 'Actif' : 'Inactif' }}</td>
                                 <td>
-                                    <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm col-yellow text-white bi bi-eye"></a>
+                                    <a href="{{ path('admin_recipes_view', {'id': recipe.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
                                     <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm col-blue text-white fw-bold">Editer</a>
                                     
                                         <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-                                            <button type="button" class="btn btn-sm col-orange text-white me-1 bi bi-trash" onclick="confirmDelete({{ recipe.id }})"></button>
+                                            <button type="button" class="btn btn-sm col-red text-white me-1 bi bi-trash" onclick="confirmDelete({{ recipe.id }})"></button>
                                         </form>
                                         <div class="d-grid gap-2">
 

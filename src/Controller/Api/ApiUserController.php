@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,12 @@ class ApiUserController extends AbstractController
 {
 
     private $JWTManager;
+    private $entityManager;
 
-    public function __construct(JWTTokenManagerInterface $JWTManager)
+    public function __construct(JWTTokenManagerInterface $JWTManager, EntityManagerInterface $entityManager)
     {
         $this->JWTManager = $JWTManager;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -105,6 +108,26 @@ class ApiUserController extends AbstractController
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'pseudo' => $user->getPseudo(),
+        ]);
+    }
+
+    #[Route('/api/users/{id}/edit', name: 'api_users_edit')]
+    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, User $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+            $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('admin_users');
+        }
+
+        return $this->render('admin/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }

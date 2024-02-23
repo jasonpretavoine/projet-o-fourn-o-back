@@ -22,13 +22,13 @@
                     <dd class="col-sm-9">{{ category.name }}</dd>
                 </dl>
 
-                <a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn btn-primary">Modifier</a>
+                <a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn col-blue text-white fw-bold">Editer</a>
                 <form id="delete-form-{{ category.id }}" action="{{ path('admin_categories_delete', {'id': category.id}) }}" method="post" style="display: inline;">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
-                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ category.id }})">Supprimer</button>
+                    <button type="button" class="btn btn-sm col-red text-white me-2 bi bi-trash" onclick="confirmDelete({{ category.id }})"></button>
                 </form>
-                <a href="{{ path('admin_categories_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                <a href="{{ path('admin_categories_index') }}" class="btn col-orange text-white fw-bold">Retour à la liste</a>
             </div>
         </div>
     </div>

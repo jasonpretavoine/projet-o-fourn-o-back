@@ -33,12 +33,12 @@
 							<td><img src="{{ asset('images/' ~ ingredient.picture) }}" alt="{{ ingredient.name }}" class="img-fluid" style="max-width: 100px;"></td>
 							<td>{{ ingredient.metricUnit }}</td>
 							<td class="d-flex justify-content-end">
-								<a href="{{ path('admin_ingredients_view', {'id': ingredient.id}) }}" class="btn btn-sm btn-secondary">Voir</a>
+								<a href="{{ path('admin_ingredients_view', {'id': ingredient.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
 								<a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-sm col-blue text-white fw-bold" style="margin: 0 8px">Editer</a>
 								<form action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
 									<input type="hidden" name="_method" value="DELETE">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
-									<button type="submit" class="btn btn-sm col-orange text-white bi bi-trash" style="margin-right: 8px" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')"></button>
+									<button type="submit" class="btn btn-sm col-red text-white bi bi-trash" style="margin-right: 8px" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')"></button>
 								</form>
 							</td>
 						</tr>

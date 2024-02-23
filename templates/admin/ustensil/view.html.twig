@@ -35,13 +35,13 @@
                     </tbody>
                 </table>
 
-                <a href="{{ path('admin_ustensils_edit', {'id': ustensil.id}) }}" class="btn btn-primary">Modifier</a>
+                <a href="{{ path('admin_ustensils_edit', {'id': ustensil.id}) }}" class="btn col-blue text-white fw-bold">Editer</a>
                 <form id="delete-form-{{ ustensil.id }}" action="{{ path('admin_ustensils_delete', {'id': ustensil.id}) }}" method="post" style="display: inline;">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ustensil.id) }}">
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ ustensil.id }})">Supprimer</button>
                 </form>
-                <a href="{{ path('admin_ustensils_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                <a href="{{ path('admin_ustensils_index') }}" class="btn col-orange text-white fw-bold  ">Retour à la liste</a>
             </div>
         </div>
     </div>
