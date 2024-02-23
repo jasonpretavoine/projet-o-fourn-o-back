@@ -78,13 +78,13 @@
                     </tbody>
                 </table>
 
-                <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn col-blue text-white fw-bold">Editer</a>
+                <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-sm col-blue text-white fw-bold">Editer</a>
                 <form id="delete-form-{{ recipe.id }}" action="{{ path('admin_recipes_delete', {'id': recipe.id}) }}" method="post" style="display: inline;">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ recipe.id }})">Supprimer</button>
+                    <button type="button" class="btn btn-sm col-red text-white bi bi-trash" onclick="confirmDelete({{ recipe.id }})"></button>
                 </form>
-                <a href="{{ path('admin_recipes') }}" class="btn col-orange text-white fw-bold">Retour à la liste</a>
+                <a href="{{ path('admin_recipes') }}" class="btn btn-sm col-orange text-white fw-bold">Retour à la liste</a>
             </div>
         </div>
 

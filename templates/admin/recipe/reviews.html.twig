@@ -34,14 +34,17 @@
                                 <tr>
                                     <td>{{ review.text }}</td>
                                     <td>{{ review.status ? 'Approuvé' : 'Rejeté' }}</td>
-                                    <td>
-                                        <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
-                                        <form action="{{ path('admin_review_delete', {'id': review.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
-                                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                                        </form>
+                                   <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm col-blue text-white fw-bold me-2">Editer</a>
+                                            <form action="{{ path('admin_review_delete', {'id': review.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="margin-right: 10px;">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
+                                                <button type="submit" class="btn btn-sm col-red text-white bi bi-trash"></button>
+                                            </form>
+                                        </div>
                                     </td>
+
                                 </tr>
                             {% endfor %}
                         </tbody>
