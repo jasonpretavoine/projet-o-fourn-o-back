@@ -15,10 +15,7 @@ class UstensilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('csrf_token', HiddenType::class, [
-                'mapped' => false,
-                'data' => $options['csrf_token'], // Incluez le jeton CSRF passé en option
-            ])
+          
             ->add('name', null, [
                 'label' => 'Nom',
             ])
@@ -32,7 +29,7 @@ class UstensilType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ustensil::class,
-            'csrf_token' => '',
+           
         ]);
     }
 }

@@ -20,10 +20,7 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('csrf_token', HiddenType::class, [
-            'mapped' => false,
-            'data' => $options['csrf_token'], // Incluez le jeton CSRF passé en option
-        ])
+        
             ->add('name', null, [
                 'label' => 'Nom',
             ])
@@ -115,7 +112,7 @@ class RecipeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Recipe::class,
-            'csrf_token' => '',
+          
         ]);
     }
 }

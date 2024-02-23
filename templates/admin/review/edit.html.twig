@@ -17,13 +17,16 @@
 
         <div class="container">
             <div class="section">
-                <form action="{{ path('admin_review_edit', {'id': review.id}) }}" method="post">
+                {{ form_start(form, {
+                    action: path('admin_review_edit', {'id': review.id}),
+                    method: 'post'
+                }) }}
                     {{ form_row(form.text) }}
                     {{ form_row(form.status) }}
                     
                     <button type="submit" class="btn btn-primary">Valider</button>
                     <a href="{{ path('admin_recipes') }}" class="btn btn-danger">Annuler</a>
-                </form>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
