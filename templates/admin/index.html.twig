@@ -54,8 +54,11 @@
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
                                             <button type="button" class="btn btn-sm col-orange text-white me-1 bi bi-trash" onclick="confirmDelete({{ recipe.id }})"></button>
                                         </form>
-                                            
-                                        <a href="{{ path('admin_recipes_reviews', {'id': recipe.id}) }}" class="btn btn-sm col-brown text-white fw-bold margin-top-10 me-1">Commentaires</a>
+                                        <div class="d-grid gap-2">
+
+                                            <a href="{{ path('admin_recipes_reviews', {'id': recipe.id}) }}" class="btn btn-sm col-brown text-white fw-bold margin-top-10 me-1">Commentaires</a>
+                                        </div> 
+                                        
                                     
                                     
                                 </td>
