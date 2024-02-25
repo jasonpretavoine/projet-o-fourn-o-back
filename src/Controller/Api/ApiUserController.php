@@ -112,22 +112,33 @@ class ApiUserController extends AbstractController
     }
 
     #[Route('/api/users/{id}/edit', name: 'api_users_edit')]
-    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, User $user): Response
+    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('password')->getData();
-            $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
-            $this->entityManager->flush();
+
+            if ($newPassword) {
+                $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            }
+
+            try {
+                $entityManager->flush();
+            } catch (\Throwable $th) {
+                $this->addFlash('attention', 'Cette adresse mail existe déjà');
+            }
 
             return $this->redirectToRoute('admin_users');
         }
 
+        // Remplace la valeur du champ de mot de passe par des étoiles
+        $formView = $form->createView();
+        $formView->children['password']->vars['value'] = str_repeat('*', 8);
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
-            'form' => $form->createView(),
+            'form' => $formView,
         ]);
     }
 }
