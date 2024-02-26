@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'ingrédient{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <header class="mb-4">
+            <div class="container py-3">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h1>Modifier l'ingrédient</h1>
+                    </div>
+                 
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="section">
+                {{ form_start(form, {
+                    action: path('admin_ingredients_edit', {'id': ingredient.id}),
+                    method: 'post'
+                }) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.picture) }}
+                    {{ form_row(form.metricUnit) }}
+                    
+                    <button type="submit" class="btn btn-sm col-blue text-white fw-bold">Valider</button>
+                    <a href="{{ path('admin_ingredients_index') }}" class="btn btn-sm col-orange text-white fw-bold">Annuler</a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+{% endblock %}
