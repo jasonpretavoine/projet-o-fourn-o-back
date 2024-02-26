@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -112,7 +113,7 @@ class ApiUserController extends AbstractController
     }
 
     #[Route('/api/users/{id}/edit', name: 'api_users_edit')]
-    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, User $user): Response
+    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, SerializerInterface $serializer, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -130,12 +131,18 @@ class ApiUserController extends AbstractController
                 $this->addFlash('attention', 'Cette adresse mail existe déjà');
             }
 
-            return $this->redirectToRoute('admin_users');
+            // Utilise le serializer pour sérialiser les données de l'utilisateur
+            $serializedUser = $serializer->serialize($user, 'json', ['groups' => 'edit_users']);
+
+            // Retourne une réponse JSON avec les données sérialisées
+            return new JsonResponse($serializedUser, Response::HTTP_OK, [], true);
         }
 
         // Remplace la valeur du champ de mot de passe par des étoiles
         $formView = $form->createView();
         $formView->children['password']->vars['value'] = str_repeat('*', 8);
+
+        // Retourne le formulaire rendu dans une réponse HTML
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $formView,

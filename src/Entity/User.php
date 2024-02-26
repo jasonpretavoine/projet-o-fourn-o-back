@@ -16,23 +16,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_users_collection', 'get_user_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'edit_user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(['get_users_collection', 'get_user_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'edit_user'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 30)]
-    #[Groups(['get_users_collection', 'get_user_item', 'get_recipe_item', 'get_reviews_collection', 'get_review_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'get_recipe_item', 'get_reviews_collection', 'get_review_item', 'edit_user'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['get_users_collection', 'get_user_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'edit_user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    #[Groups(['get_users_collection', 'get_user_item'])]
+    #[Groups(['get_users_collection', 'get_user_item', 'edit_user'])]
     private ?string $email = null;
 
     #[ORM\Column]
