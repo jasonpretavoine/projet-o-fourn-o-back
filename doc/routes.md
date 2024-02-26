@@ -30,11 +30,12 @@ Racine : ```http://localhost/projet-o-fourn-o-back/public/``` , adapter l'hôte.
 
 ### Utilisateurs
 
-| Descriptions          | Routes                 |
-| --------------------- | ---------------------- |
-| Tous les utilisateurs | ```/api/users/view```  |
-| Utilisateur par Id    | ```/api/user/{id}```   |
-| Crée un utilisateur   | ```/api/user/create``` |
+| Descriptions                 | Routes                     |
+| ---------------------------- | -------------------------- |
+| Tous les utilisateurs        | ```/api/users/view```      |
+| Utilisateur par Id           | ```/api/user/{id}```       |
+| Crée un utilisateur          | ```/api/user/create```     |
+| Mise à jour d'un utilisateur | ```/api/users/{id}/edit``` |
 
 ### Commentaires
 
