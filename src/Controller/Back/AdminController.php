@@ -19,7 +19,9 @@ class AdminController extends AbstractController
     #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
-      
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $recipes = $this->recipeRepository->findAll();
 
        
