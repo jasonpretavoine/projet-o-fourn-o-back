@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -116,49 +115,32 @@ class ApiUserController extends AbstractController
     #[Route('/api/users/{id}/edit', name: 'api_users_edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, SerializerInterface $serializer, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['csrf_protection' => false]);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('password')->getData();
-    
+
             if ($newPassword) {
                 $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
             }
-    
+
             try {
                 $entityManager->flush();
             } catch (\Throwable $th) {
                 $this->addFlash('attention', 'Cette adresse mail existe déjà');
             }
-    
+
             // Utilise le serializer pour sérialiser les données de l'utilisateur
             $serializedUser = $serializer->serialize($user, 'json', ['groups' => 'edit_users']);
-    
+
             // Retourne une réponse JSON avec les données sérialisées
             return new JsonResponse($serializedUser, Response::HTTP_OK, [], true);
         }
-    
-        // Remplace la valeur du champ de mot de passe par des étoiles
-        $formView = $form->createView();
-        $formView->children['password']->vars['value'] = str_repeat('*', 8);
-    
-        // Retourne une réponse JSON avec les erreurs de validation du formulaire
-        $errors = $this->getErrorsFromForm($form);
-        return new JsonResponse(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-    }
-    
-    private function getErrorsFromForm(FormInterface $form): array
-    {
-        $errors = [];
-        foreach ($form->getErrors(true, true) as $error) {
-            $errors[$form->getName()][] = $error->getMessage();
-        }
-        foreach ($form->all() as $childForm) {
-            if ($childErrors = $this->getErrorsFromForm($childForm)) {
-                $errors = array_merge($errors, $childErrors);
-            }
-        }
-        return $errors;
+
+        // // Remplace la valeur du champ de mot de passe par des étoiles
+        // $formView->children['password']->vars['value'] = str_repeat('*', 8);
+
+        return $this->json(['message' => 'Fonctionnalité en cours de développement']);
     }
 }
