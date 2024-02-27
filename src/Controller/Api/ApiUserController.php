@@ -109,6 +109,7 @@ class ApiUserController extends AbstractController
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'pseudo' => $user->getPseudo(),
+            'roles' => $user->getRoles(),
         ]);
     }
 
