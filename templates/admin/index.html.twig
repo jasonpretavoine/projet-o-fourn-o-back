@@ -36,7 +36,7 @@
                         {% for recipe in recipes %}
                             <tr>
                                 <td>{{ recipe.name }}</td>
-                                <td><img src="{{ asset( recipe.picture) }}" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 100px;"></td>
+                                <td><img src="{{ recipe.picture }}" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 100px;"></td>
                                 <td>{{ recipe.description | slice(0, 50) }}...</td>
                                 <td>{{ recipe.instructions | slice(0, 50) }}...</td>
                                 <td>{{ recipe.preparationTime }}</td>

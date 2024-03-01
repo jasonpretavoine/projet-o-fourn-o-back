@@ -30,7 +30,7 @@
 					{% for ingredient in ingredients %}
 						<tr>
 							<td>{{ ingredient.name }}</td>
-							<td><img src="{{ ingredient.picture) }}" alt="{{ ingredient.name }}" class="img-fluid" style="max-width: 100px;"></td>
+							<td><img src="{{ ingredient.picture }}" alt="{{ ingredient.name }}" class="img-fluid" style="max-width: 100px;"></td>
 							<td>{{ ingredient.metricUnit }}</td>
 							<td class="d-flex justify-content-end">
 								<a href="{{ path('admin_ingredients_view', {'id': ingredient.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
