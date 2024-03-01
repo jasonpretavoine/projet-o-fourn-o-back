@@ -31,12 +31,14 @@
                             <td><img src="{{ ustensil.picture }}" alt="{{ ustensil.name }}" class="img-fluid" style="max-width: 100px;"></td>
                             <td class="d-flex justify-content-end">
                             <a href="{{ path('admin_ustensils_view', {'id': ustensil.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
+                            {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' not in app.user.roles) %}
                                 <a href="{{ path('admin_ustensils_edit', {'id': ustensil.id}) }}" class="btn btn-sm col-blue text-white fw-bold" style="margin: 0 8px">Editer</a>
                                 <form action="{{ path('admin_ustensils_delete', {'id': ustensil.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ustensile ?');">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ustensil.id) }}">
                                     <button type="submit" class="btn btn-sm col-red text-white bi bi-trash" style="margin-right: 8px"></button>
                                 </form>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

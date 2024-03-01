@@ -33,6 +33,7 @@
                         </tr>
                     </tbody>
                 </table>
+                                {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' not in app.user.roles) %}
 
                 <a href="{{ path('admin_ingredients_edit', {'id': ingredient.id}) }}" class="btn btn-sm col-blue text-white fw-bold">Editer</a>
                 <form id="delete-form-{{ ingredient.id }}" action="{{ path('admin_ingredients_delete', {'id': ingredient.id}) }}" method="post" style="display: inline;">
@@ -40,6 +41,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingredient.id) }}">
                     <button type="button" class="btn btn-sm col-red text-white bi bi-trash" onclick="confirmDelete({{ ingredient.id }})"></button>
                 </form>
+                {% endif %}
                 <a href="{{ path('admin_ingredients_index') }}" class="btn btn-sm col-orange text-white fw-bold">Retour à la liste</a>
             </div>
         </div>

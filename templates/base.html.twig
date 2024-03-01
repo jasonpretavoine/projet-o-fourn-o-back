@@ -38,7 +38,7 @@
             <a href="{{ path('admin_recipes') }}" class="btn col-orange text-white bi bi-house-door me-4"></a>
             <a href="http://ofourno.arnaudtricoire.com" target="_blank" class="btn col-orange text-white me-4 bi bi-globe"></a>
 
-            {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_MODERATOR' in app.user.roles) %}
+            {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' in app.user.roles) %}
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="btn col-blue text-white fw-bold" href="{{ path('admin_users') }}">Utilisateur.ices</a>
@@ -56,16 +56,20 @@
             {% endif %}
 
             <div class="ms-auto">
-                {% if app.request.attributes.get('_route') == 'admin_recipes' %}
-                <a href="{{ path('admin_recipes_new') }}" class="btn col-green text-white fw-bold">Ajouter une recette</a>
-                {% elseif app.request.attributes.get('_route') == 'admin_ingredients_index' %}
-                <a href="{{ path('admin_ingredients_new') }}" class="btn col-green text-white fw-bold">Ajouter un ingrédient</a>
-                {% elseif app.request.attributes.get('_route') == 'admin_ustensils_index' %}
-                <a href="{{ path('admin_ustensils_new') }}" class="btn col-green text-white fw-bold">Ajouter un ustensile</a>
-                {% elseif app.request.attributes.get('_route') == 'admin_categories_index' %}
-                <a href="{{ path('admin_categories_new') }}" class="btn col-green text-white fw-bold">Ajouter une catégorie</a>
-                {% elseif app.request.attributes.get('_route') == 'admin_users' %}
-                <a href="{{ path('admin_users_new') }}" class="btn col-green text-white fw-bold">Ajouter un utilisateur</a>
+                {% if app.user %}
+                    {% if 'ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' not in app.user.roles %}
+                        {% if app.request.attributes.get('_route') == 'admin_recipes' %}
+                            <a href="{{ path('admin_recipes_new') }}" class="btn col-green text-white fw-bold">Ajouter une recette</a>
+                        {% elseif app.request.attributes.get('_route') == 'admin_ingredients_index' %}
+                            <a href="{{ path('admin_ingredients_new') }}" class="btn col-green text-white fw-bold">Ajouter un ingrédient</a>
+                        {% elseif app.request.attributes.get('_route') == 'admin_ustensils_index' %}
+                            <a href="{{ path('admin_ustensils_new') }}" class="btn col-green text-white fw-bold">Ajouter un ustensile</a>
+                        {% elseif app.request.attributes.get('_route') == 'admin_categories_index' %}
+                            <a href="{{ path('admin_categories_new') }}" class="btn col-green text-white fw-bold">Ajouter une catégorie</a>
+                        {% elseif app.request.attributes.get('_route') == 'admin_users' %}
+                            <a href="{{ path('admin_users_new') }}" class="btn col-green text-white fw-bold">Ajouter un utilisateur</a>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

@@ -1,58 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Avis de la recette {{ recipe.name }}{% endblock %}
+{% block title %}Avis de la recette
+	{{ recipe.name }}
+{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <header class="mb-4">
-            <div class="container py-3">
-                <div class="row align-items-center">
-                    <div class="col-6">
-                        <h1>Avis de la recette {{ recipe.name }}</h1>
-                    </div>
-                 
-                </div>
-            </div>
-        </header>
+	<div class="container-fluid">
+		<header class="mb-4">
+			<div class="container py-3">
+				<div class="row align-items-center">
+					<div class="col-6">
+						<h1>Avis de la recette
+							{{ recipe.name }}</h1>
+					</div>
 
-        <div class="container">
-            <div class="section">
+				</div>
+			</div>
+		</header>
 
-                {% if reviews is empty %}
-                    <p>Aucun avis n'a été publié pour cette recette.</p>
-                {% else %}
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Commentaire</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for review in reviews %}
-                                <tr>
-                                    <td>{{ review.text }}</td>
-                                    <td>{{ review.status ? 'Approuvé' : 'Rejeté' }}</td>
-                                   <td>
-                                        <div class="d-flex align-items-center">
-                                            <a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm col-blue text-white fw-bold me-2">Editer</a>
-                                            <form action="{{ path('admin_review_delete', {'id': review.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="margin-right: 10px;">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
-                                                <button type="submit" class="btn btn-sm col-red text-white bi bi-trash"></button>
-                                            </form>
-                                        </div>
-                                    </td>
+		<div class="container">
+			<div class="section">
 
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+				{% if reviews is empty %}
+					<p>Aucun avis n'a été publié pour cette recette.</p>
+				{% else %}
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th>Commentaire</th>
+								<th>Statut</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for review in reviews %}
+								<tr>
+									<td>{{ review.text }}</td>
+									<td>{{ review.status ? 'Approuvé' : 'Rejeté' }}</td>
+									<td>
+										<div class="d-flex align-items-center">
+											{% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' not in app.user.roles) %}
+
+												<a href="{{ path('admin_review_edit', {'id': review.id}) }}" class="btn btn-sm col-blue text-white fw-bold me-2">Editer</a>
+												<form action="{{ path('admin_review_delete', {'id': review.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="margin-right: 10px;">
+													<input type="hidden" name="_method" value="DELETE">
+													<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
+													<button type="submit" class="btn btn-sm col-red text-white bi bi-trash"></button>
+												</form>
+											{% endif %}
+										</div>
+									</td>
+
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
 
 {% endblock %}
