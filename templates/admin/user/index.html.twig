@@ -40,8 +40,8 @@
 								{% endfor %}
 							</td>
 							<td class="d-flex justify-content-end">
-								{% if 'ROLE_VISITOR' not in user.roles %}
-									{% if is_granted('ROLE_ADMIN') %}
+								
+                            {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_VISITOR' not in app.user.roles) %}
 										<a href="{{ path('admin_users_view', {'id': user.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
 										<a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-sm col-blue text-white fw-bold" style="margin: 0 8px">Editer</a>
 										<form action="{{ path('admin_users_delete', {'id': user.id}) }}" method="post" style="display: inline;">
@@ -52,7 +52,7 @@
 									{% else %}
 										<a href="{{ path('admin_users_view', {'id': user.id}) }}" class="btn btn-sm col-orange text-white bi bi-eye"></a>
 									{% endif %}
-								{% endif %}
+							
 							</td>
 							</tr>
 					{% endfor %}
