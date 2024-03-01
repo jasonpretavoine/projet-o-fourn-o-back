@@ -31,10 +31,6 @@
         </div>
     </header>
 
-	cat << EOF >> ~/.bashrc
-export PATH="\$PATH:/opt/alt/alt-nodejs21/root/usr/bin/:~/bin/node_modules/yarn/bin"
-EOF
-source ~/.bashrc
 
     {% if app.user %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,7 +38,7 @@ source ~/.bashrc
             <a href="{{ path('admin_recipes') }}" class="btn col-orange text-white bi bi-house-door me-4"></a>
             <a href="http://ofourno.arnaudtricoire.com" target="_blank" class="btn col-orange text-white me-4 bi bi-globe"></a>
 
-            {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+            {% if app.user and ('ROLE_ADMIN' in app.user.roles or 'ROLE_MODERATOR' in app.user.roles) %}
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="btn col-blue text-white fw-bold" href="{{ path('admin_users') }}">Utilisateur.ices</a>

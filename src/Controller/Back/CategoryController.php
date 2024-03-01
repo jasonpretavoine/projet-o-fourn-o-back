@@ -21,7 +21,7 @@ class CategoryController extends AbstractController
     }
     
      // Affiche la liste de toutes les catégories
-     #[Route('/admin/categories', name: 'admin_categories_index', methods: ['GET'])]
+     #[Route('/admin/categories', name: 'admin_categories_index', methods: ['GET', 'POST'])]
      public function index(CategoryRepository $categoryRepository): Response
      {
          $categories = $categoryRepository->findAll();
