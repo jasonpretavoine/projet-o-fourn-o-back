@@ -21,7 +21,7 @@ class UstensilController extends AbstractController
     }
 
     // Affiche la liste des ustensiles
-    #[Route('/admin/ustensils', name: 'admin_ustensils_index', methods: ['GET'])]
+    #[Route('/admin/ustensils', name: 'admin_ustensils_index', methods: ['GET', 'POST'])]
     public function index(UstensilRepository $ustensilRepository): Response
     {
         $ustensils = $ustensilRepository->findAll();
