@@ -69,24 +69,31 @@ class ApiUserController extends AbstractController
     #[Route('/api/user/create', name: 'api_user_create_post', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
-
         $data = json_decode($request->getContent(), true);
-
-        if (!isset($data['username']) || !isset($data['pseudo']) || !isset($data['password']) || !isset($data['email'])) {
-            return $this->json(['error' => 'Données requises manquantes'], 400);
+    
+        // Validation des données
+        $requiredFields = ['username', 'pseudo', 'password', 'email'];
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field])) {
+                return $this->json(['error' => 'Données requises manquantes'], 400);
+            }
         }
-
+    
+        // Création d'une nouvelle instance de User
         $user = new User();
         $user->setUsername($data['username']);
         $user->setPseudo($data['pseudo']);
-        $user->setPassword($data['password']);
-        $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
         $user->setEmail($data['email']);
         $user->setRoles(['ROLE_USER']);
-
+    
+        // Hachage sécurisé du mot de passe et attribution à l'utilisateur
+        $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
+        $user->setPassword($hashedPassword);
+    
+        // Enregistrement de l'utilisateur en base de données
         $entityManager->persist($user);
         $entityManager->flush();
-
+    
         return $this->json(['message' => 'Utilisateur créé avec succès'], 201);
     }
 
