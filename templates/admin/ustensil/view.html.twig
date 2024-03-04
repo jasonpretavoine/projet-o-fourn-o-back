@@ -27,7 +27,7 @@
 							<th>Image :</th>
 							<td>
 								{% if ustensil.picture is not null %}
-                            <td><img src="{{ ustensil.picture }}" alt="{{ ustensil.name }}" class="img-fluid" style="max-width: 100px;"></td>
+                            <img src="{{ ustensil.picture }}" alt="{{ ustensil.name }}" class="img-fluid" style="max-width: 100px;">
 								{% else %}
 									Aucune image
 								{% endif %}
