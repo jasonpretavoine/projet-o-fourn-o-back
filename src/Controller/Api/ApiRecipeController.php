@@ -74,24 +74,24 @@ class ApiRecipeController extends AbstractController
     {
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
-    
+
         // Vérifiez si les données requises sont présentes
         if (!isset($data['name']) || !isset($data['description']) || !isset($data['instructions']) || !isset($data['difficulty']) || !isset($data['preparationTime']) || !isset($data['cookingTime']) || !isset($data['servings'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
-    
+
         // Mettez à jour les propriétés de la recette
         $recipe->setName($data['name']);
         $recipe->setDescription($data['description']);
-        $recipe->setInstructions($data['instructions']); // Utilisez les données directement
+        $recipe->setInstructions($data['instructions']);
         $recipe->setDifficulty($data['difficulty']);
         $recipe->setPreparationTime($data['preparationTime']);
         $recipe->setCookingTime($data['cookingTime']);
         $recipe->setServings($data['servings']);
-    
+
         // Persistez les modifications dans la base de données
         $entityManager->flush();
-    
+
         // Réponse JSON indiquant que la recette a été mise à jour avec succès
         return $this->json(['message' => 'Recette mise à jour avec succès'], 200);
     }
@@ -110,26 +110,26 @@ class ApiRecipeController extends AbstractController
     {
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
-    
+
         // Vérifiez si les données requises sont présentes
         if (!isset($data['name']) || !isset($data['description']) || !isset($data['instructions']) || !isset($data['difficulty']) || !isset($data['preparationTime']) || !isset($data['cookingTime']) || !isset($data['servings'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
-    
+
         // Créez une nouvelle instance de l'entité Recipe
         $recipe = new Recipe();
         $recipe->setName($data['name']);
         $recipe->setDescription($data['description']);
-        $recipe->setInstructions($data['instructions']); // Utilisez les données directement
+        $recipe->setInstructions($data['instructions']);
         $recipe->setDifficulty($data['difficulty']);
         $recipe->setPreparationTime($data['preparationTime']);
         $recipe->setCookingTime($data['cookingTime']);
         $recipe->setServings($data['servings']);
-    
+
         // Persistez la nouvelle recette dans la base de données
         $entityManager->persist($recipe);
         $entityManager->flush();
-    
+
         // Réponse JSON indiquant que la recette a été créée avec succès
         return $this->json(['message' => 'Recette créée avec succès'], 201);
     }

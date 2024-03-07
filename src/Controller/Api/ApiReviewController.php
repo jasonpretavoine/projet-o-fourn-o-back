@@ -91,8 +91,11 @@ class ApiReviewController extends AbstractController
     public function create(Recipe $recipe, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): JsonResponse
     {
 
-         $user = $this->getUser();
-    
+        // TODO : mettre ça pour récupérer le user depuis JWT : 
+        // $user = $this->getUser();
+
+        // TODO : supprimer dès que on a la ligne au dessus
+        $user = $userRepository->find(3);
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
 
