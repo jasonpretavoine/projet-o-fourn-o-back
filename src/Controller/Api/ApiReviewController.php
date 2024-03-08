@@ -90,20 +90,20 @@ class ApiReviewController extends AbstractController
     #[Route('/api/recipes/{id}/review/create', name: 'api_review_create_post', methods: ['POST'])]
     public function create(Recipe $recipe, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): JsonResponse
     {
-
-        // TODO : mettre ça pour récupérer le user depuis JWT : 
-        // $user = $this->getUser();
-
-        // TODO : supprimer dès que on a la ligne au dessus
+         $user = $this->getUser();
+        
         $user = $userRepository->find(3);
         // Récupérer les données JSON envoyées dans la requête
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données requises sont présentes
-        if (!isset($data['text']) || !isset($data['rating'])) {
+    if (!isset($data['text'], $data['rating'], $data['user_id'])) {
             return $this->json(['error' => 'Données requises manquantes'], 400);
         }
-
+  $user = $userRepository->find($data['user_id']);
+    if (!$user) {
+        return $this->json(['error' => 'Utilisateur non trouvé'], 404);
+    }
         // Créez une nouvelle instance de l'entité Review
         $review = new Review();
         $review->setText($data['text']);
