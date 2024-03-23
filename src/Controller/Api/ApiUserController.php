@@ -151,4 +151,12 @@ class ApiUserController extends AbstractController
 
         return $this->json(['message' => 'Fonctionnalité en cours de développement']);
     }
+    #[Route('/api/users/{id}', name: 'api_users_delete', methods: ['DELETE'])]
+    public function delete(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Utilisateur supprimé avec succès']);
+    }
 }
